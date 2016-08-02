@@ -1,3 +1,4 @@
+var regID="";
 var app = {
     // Application Constructor
     initialize: function() {
@@ -37,8 +38,8 @@ var app = {
 
         push.on('registration', function(data) {
             console.log('registration event: ' + data.registrationId);
-            
-            storeRegID(data.registrationId);
+            regID=data.registrationId;
+            //storeRegID(data.registrationId);
             var oldRegId = localStorage.getItem('registrationId');
             if (oldRegId !== data.registrationId) {
                 // Save new registration ID
@@ -105,25 +106,29 @@ function storeRegID(regid){
 function btnLogin_onClick(){
     loading.startLoading();
     
-     dbmanager.getHistoryListFromDB(function(returnData){
-        
-            if(returnData.rows.length>0)
-            {
-                $.each(returnData.rows, function(key, value){
-                    var userName=$("#txtLoginId").val();
-                    var pwd=$("#txtPassword").val();
-                    alert(value.ID);
-                    requetLogin(userName, pwd, value.ID);
-                });       
-            }
-            else
-            {
-                var userName=$("#txtLoginId").val();
-                var pwd=$("#txtPassword").val();
-
-                requetLogin(userName, pwd, "");
-            }
-        });
+    var userName=$("#txtLoginId").val();
+    var pwd=$("#txtPassword").val();
+    alert(regID);
+    requetLogin(userName, pwd, regID);
+//     dbmanager.getHistoryListFromDB(function(returnData){
+//        
+//            if(returnData.rows.length>0)
+//            {
+//                $.each(returnData.rows, function(key, value){
+//                    var userName=$("#txtLoginId").val();
+//                    var pwd=$("#txtPassword").val();
+//                    alert(value.ID);
+//                    requetLogin(userName, pwd, value.ID);
+//                });       
+//            }
+//            else
+//            {
+//                var userName=$("#txtLoginId").val();
+//                var pwd=$("#txtPassword").val();
+//
+//                requetLogin(userName, pwd, "");
+//            }
+//        });
     
     
 }

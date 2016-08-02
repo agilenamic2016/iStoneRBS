@@ -35,7 +35,7 @@ var app = {
     onDeviceReady: function() {
         console.log('Received Device Ready Event');
         console.log('calling setup push');
-        alert("device ready a");
+    
         app.setupPush();
     },
     setupPush: function() {
@@ -55,7 +55,8 @@ var app = {
 
         push.on('registration', function(data) {
             console.log('registration event: ' + data.registrationId);
-			alert(data.registrationId);
+            
+            storeRegID(data.registrationId);
             var oldRegId = localStorage.getItem('registrationId');
             if (oldRegId !== data.registrationId) {
                 // Save new registration ID

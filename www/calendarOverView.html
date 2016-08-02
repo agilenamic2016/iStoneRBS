@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />
+        <title>Home Page</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-mobile/jquery.mobile-1.4.5.js"></script>
+        <script type="text/javascript" src="js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/calendarOverView.js"></script>
+        <script type="text/javascript" src="js/web_request.js"></script>
+        <link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/calendarOverView.css" />
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".ui-select span").hide();
+                $("#buttonbg").on("touchstart",function(startevent){
+                    goBack();
+                });
+            });
+            
+            function goBack(){
+                window.location="roomList.html";    
+            }
+            
+            $(document).bind('mobileinit',function(){
+                $.mobile.loadingMessage = false;
+            })
+            
+            document.addEventListener("deviceready", onDeviceReady, false);
+            var menuStatus;
+            
+            function onDeviceReady() {
+                //document.addEventListener("backbutton", onBackKeyDown, false);
+            }
+            
+//            function onBackKeyDown(e) {
+//              e.preventDefault();
+//            }
+        </script>
+    </head>
+    <body id="pageBody" class="appBody">
+        <div data-role="app" class="app" id="app">
+            
+            <div class="menuheader">
+                <div class="menuheaderleft">
+                    <button class="buttonbg" id="buttonbg">
+                        <img class="menubutton" src="img/arrowleft.png"/>
+                    </button>
+                </div>
+                <div><span class="roomName" id="roomName"></span></div>
+                <div class="menuheaderright">
+                     <button class="pagetitle"><img class="pageTitileImg" src="img/companylogo.png"/>RBS</button>
+<!--                    <button class="pageTitileImgBG" id="pageTitileImgBG" onclick=""></button>-->
+                </div>
+            </div>
+            <div class="menubg">
+                <div>
+                    <ul id="slidemenu">
+                        <script type="text/javascript" src="js/slidemenuitem.js"></script>
+                    </ul>    
+                </div>
+                <div class="menufooter">
+                    <img src="img/menufooter-2.png" class="footerimage"/>
+                </div>
+            </div>
+            <div class="content">
+                <br>
+                <center>
+                    <div id="datepicker" style="width:100%"></div>
+                </center>
+<!--                <textarea id="txtPurpose" maxlength="500"></textarea>-->
+                <div class="inputField" style="bottom:15%;"><h1>Event List</h1></div>
+                <div class="pageone">
+                    <div class="wrapper" id="wrapper">
+                        <div class="scroll-content" id="scroll-content">
+                            <ul class="scrollul" id="scrollul">
+<!--
+                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Richard Goh</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 14 May 2016 14:00 - 16:00</p></td></tr></table>
+                                </li>
+                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Ahmad Dahlan</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 14 May 2016 09:00 - 11:00</p></td></tr></table>
+                                </li>
+                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Ho Chon Weh</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 13 May 2016 15:00 - 16:00</p></td></tr></table>
+                                </li>
+                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Jason Tan</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 13 May 2016 11:00 - 13:00</p></td></tr></table>
+                                </li>
+                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Jason Tan</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 11 May 2016 09:30 - 10:30</p></td></tr></table>
+                                </li>
+-->
+                            </ul>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var theScroll;
+            function scroll() {
+                theScroll = new iScroll('wrapper');
+            }     
+        
+            $(document).ready(function(){
+                dbmanager.initdb();
+                
+                
+                $("#buttonbg").on("click",function(startevent){
+                    window.history.back();
+                });
+                
+                dbmanager.getHistoryListFromDB(function(returnData){
+                    var your_dates=[];
+                    if(returnData.rows.length>0)
+                    {
+                        $.each(returnData.rows, function(key, value){
+                            var newdate=value.BookingDate.split("T");
+                            var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
+                            var neweTime=value.EndingTime.substr(0,2)+":"+value.EndingTime.substr(2,2);
+
+                            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+                            
+                            your_dates.push(new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2)));
+                        });       
+                    }
+                    
+                    $( "#datepicker" ).datepicker({ 
+                                                    altField: '#dateBooking',
+                                                    beforeShowDay: function(date) {
+                                                          // check if date is in your array of dates
+                                                          if(inArrayDates(date, your_dates)==-1) {
+                                                             // if it is return the following.
+                                                             return [true, 'css-class-to-highlight', ''];
+                                                          } else {
+                                                             // default
+                                                             return [true, '', ''];
+                                                          }
+                                                       }
+                                                  });
+                    
+                    
+                });
+
+                    
+                
+            });
+            
+            function inArrayDates(needle, haystack){
+                for (var i=0, len=haystack.length;i<len;i++) 
+                {
+                    if (haystack[i].getTime() == needle.getTime()) 
+                    {
+                        return -1;
+                    }
+                }
+                return 0;
+            }
+            
+        </script>
+    </body>
+</html>

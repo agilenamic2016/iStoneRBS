@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />
+        <title>Home Page</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        
+        <script type="text/javascript" src="js/jquery-mobile/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery-mobile/jquery.mobile-1.4.5.js"></script>  
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/attlist.js"></script>
+        <script type="text/javascript" src="js/web_request.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/attlist.css" />
+        <script type="text/javascript">
+            $(document).ready(function(){});
+            
+            $(document).bind('mobileinit',function(){
+                $.mobile.loadingMessage = false;
+            })
+            
+            document.addEventListener("deviceready", onDeviceReady, false);
+            var menuStatus;
+            
+            function onDeviceReady() {
+                //document.addEventListener("backbutton", onBackKeyDown, false);
+            }
+            
+            function onBackKeyDown(e) {
+              e.preventDefault();
+              navigator.notification.confirm("Are you sure you want to exit ?", onConfirm, "Confirmation", "Yes,No");     
+            }
+            
+            function onConfirm(button) {
+                if(button==2){//If User selected No, then we just do nothing
+                    return;
+                }else{
+                    navigator.app.exitApp();// Otherwise we quit the app.
+                }
+            }
+            
+            function goCalendar(){
+                window.location="calendarView.html";
+            }
+        </script>
+    </head>
+    <body id="pageBody" class="appBody">
+        <div data-role="app" class="app" id="app">
+            <div class="menuheader" style="box-shadow: none;">
+                <div class="menuheaderleft" style="display:none;">
+                    <button class="buttonbg">
+                        <img class="menubutton" src="img/drawer.png"/>
+                    </button>
+                </div>
+                <div><span class="roomName" id="roomName">Add Attendee</span></div>
+                <div class="menuheaderright">
+                     <button class="pagetitle"><img class="pageTitileImg" src="img/companylogo.png"/>RBS</button>
+<!--                    <button class="pageTitileImgBG" id="pageTitileImgBG" onclick=""></button>-->
+                </div>
+            </div>
+            <div class="actionDiv"><button class="actiontitle">Add and notify attendees</button>
+                <button class="confirmButton" id="buttonConfirm">
+                    <img src="img/confirm.png"/>
+                </button>
+            </div>
+            <div class="content">
+                <div class="pageone">
+                    <div class="wrapper" id="wrapper">
+                        <div class="scroll-content" id="scroll-content">
+                            <ul class="scrollul" id="scrollul">
+<!--                                <li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>test</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p><td><input type='checkbox' name='userlist' value='1' style='float:right'></td></tr></table></li>-->
+                            </ul>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/iscroll-master/build/iscroll-lite.js"></script>
+ 
+        <script type="text/javascript">
+            var theScroll;
+            function scroll() {
+                theScroll = new iScroll('wrapper');
+            }
+            
+            app.initialize();        
+        
+            function addAtt(){
+                var userlistarr=[];
+                
+                $('#userlist:checked').each(function() {
+                   userlistarr.push({ID:$(this).val()});
+                 });
+                
+                if(userlistarr.length==0)
+                {
+                    alert("Please select attendee");        
+                }
+                else{
+                    dbmanager.getSession(function(returnData){
+                        if(returnData.rows.length>0){
+                            loading.startLoading();
+                            var meetingid=getUrlParameter("id");
+                
+                            addAttList(returnData.rows.item(0).token, meetingid,userlistarr);
+                        }
+                    });
+                    
+                    
+                }
+                    
+            }
+            $(document).ready(function(){
+                dbmanager.initdb();
+
+                $("#buttonConfirm").on("click",function(startevent){
+                    addAtt();
+                });
+                
+                dbmanager.getSession(function(returnData){
+                    if(returnData.rows.length>0){
+                        loading.startLoading();
+                        getUserList(returnData.rows.item(0).token);
+                    }
+                });
+
+            });
+            
+        </script>
+    </body>
+</html>

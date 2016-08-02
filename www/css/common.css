@@ -1,0 +1,315 @@
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+@font-face {
+    font-family: 'Roboto-Regular'; /*a name to be used later*/
+    src: url('../font/Roboto-Regular.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'Roboto-Bold'; /*a name to be used later*/
+    src: url('../font/Roboto-Bold.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'Roboto-Light'; /*a name to be used later*/
+    src: url('../font/Roboto-Light.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'Roboto-Thin'; /*a name to be used later*/
+    src: url('../font/Roboto-Thin.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'Roboto-Medium'; /*a name to be used later*/
+    src: url('../font/Roboto-Medium.ttf'); /*URL to font*/
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width:100%;
+    overflow: hidden;
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;
+    -webkit-overflow-scrolling: touch;
+    background-color: white;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+/*    font-size:12px;*/
+/*    text-transform:uppercase;*/
+}
+
+button:focus { 
+    outline:0 !important; 
+}
+
+button:active {
+    vertical-align: top;
+    padding: 2px 2px 2px 2px;
+}
+
+input{
+    text-indent: 10px;
+    background-color: white; 
+    color: #000000;
+    border: 1px solid black;
+/*    border-color:black;*/
+    border-style: solid;
+    opacity:0.5;
+    
+}
+
+input:focus { 
+    outline:0 !important; 
+}
+
+
+
+.app {
+    height:100%;                    
+    width:100%;                    
+    padding:0px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:0px 0px 0px 0px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+
+
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* Top Header Style*/
+.menuheader{
+    height: 6%;
+	width:100%;
+    background-color: #0B0B61;
+	position:absolute;
+	top:0px;
+    box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);
+    z-index: 98;
+}
+
+.menuheaderleft{
+    height: 100%;
+    width: 20%;
+}
+
+.menuheaderright{
+    position:absolute;
+    top:0;
+    right:0;
+    height:100%;
+    width:100%;
+    background-color: transparent;
+}
+
+.menubutton{
+    width: auto;
+    height: 100%;
+    background-color: transparent;
+}
+
+
+.buttonbg{
+    width: 15%;
+    height: 100%;
+    background-color: transparent;
+    border:none;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    z-index: 99;
+}
+
+.pageTitileImgBG{
+    width: 10%;
+    height: 100%;
+    background-color: transparent;
+    border:none;
+    float: right;
+}
+
+
+
+.pageTitileImg{
+    width: auto;
+    height: 70%;
+    background-color: transparent;
+    position: relative;
+    vertical-align: middle;
+    
+}
+
+.roomName{
+    color: white;
+    position: absolute;
+    left:0;
+    top: 0;
+    height: 100%;
+    line-height: 6vh;
+    font-size: 4vw;
+    font-family: "Roboto-Bold";
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.menubutton:active {
+    vertical-align: top;
+    padding: 1px 1px 1px;
+    border: none;
+}
+
+.pagetitle{
+    color: white;
+    width: auto;
+    height: 100%;
+    line-height: 100%;
+    background-color: transparent;
+    border:none;
+    right: 10px;
+    top: 0px;
+
+    font-size: 4vw;
+    font-family: "Roboto-Regular";
+	text-align:right;
+    float: right;
+}
+
+textarea {
+   resize: none;
+}
+/* Top Header Style end */
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+
+
+
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* Loading Style */
+.loadingPage{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*background-color: rgba(0,0,0,0.7);*/
+    background-color: transparent;
+    z-index: 99;
+}
+
+.loadingFrame{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 18vw;
+    height: 18vw;
+    background-color: transparent;
+    border-radius: 10px;
+    margin: auto;
+    z-index: 99;
+}
+
+.loadingIcon{
+    height: 80%;
+    width: 80%;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+/* Loading Style end */
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+
+
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* Input field style */
+.inputField{
+    width: 100%;
+    height:10%;
+    position: absolute;
+}
+
+.inputImg{
+    height: 6vh;
+    width: auto;
+    display: inline-block;
+    position: absolute;
+    left:19%;
+}
+
+.inputText{
+    height: 5vh;
+    width: 50%;
+    border-radius: 5px;
+    display: inline-block;
+    position: absolute;
+    left:30%;
+}
+
+.btnCommon{
+    height: 6vh;
+    width: 15%;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    left: 70%;
+}
+
+.buttonImg{
+    height: 100%;
+    width: auto;
+}
+/* Input field style end*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/

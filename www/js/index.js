@@ -35,6 +35,7 @@ var app = {
     onDeviceReady: function() {
         console.log('Received Device Ready Event');
         console.log('calling setup push');
+        alert("device ready");
         app.setupPush();
     },
     setupPush: function() {
@@ -85,3 +86,61 @@ var app = {
        });
     }
 };
+//-------------------------------------------
+//-------------------------------------------
+//-------------------------------------------
+
+function storeRegID(regid){
+   
+    db.transaction(function(tx) {
+        tx.executeSql('DELETE FROM RegID');    
+    });
+    
+    var dataObj = {
+    values1 : [regid]
+    };
+
+    insertRegID(dataObj);
+
+    function insertRegID(dataObj) {
+        db.transaction(function(tx) {
+            tx.executeSql(
+                'INSERT INTO RegID (ID) VALUES (?)', 
+                dataObj.values1,
+                successStoreSessionKey,
+                erroStoreSessionKey
+            );
+        });
+    }
+}
+
+
+//-------------------------------------------
+//-------------------------------------------
+//-------------------------------------------
+//button action in index page
+function btnLogin_onClick(){
+    loading.startLoading();
+    
+     dbmanager.getHistoryListFromDB(function(returnData){
+        
+            if(returnData.rows.length>0)
+            {
+                $.each(returnData.rows, function(key, value){
+                    var userName=$("#txtLoginId").val();
+                    var pwd=$("#txtPassword").val();
+
+                    requetLogin(userName, pwd, value.ID);
+                });       
+            }
+            else
+            {
+                var userName=$("#txtLoginId").val();
+                var pwd=$("#txtPassword").val();
+
+                requetLogin(userName, pwd, "");
+            }
+        });
+    
+    
+}

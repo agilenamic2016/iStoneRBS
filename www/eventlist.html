@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />
+        <title>Home Page</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        
+        <script type="text/javascript" src="js/jquery-mobile/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery-mobile/jquery.mobile-1.4.5.js"></script>  
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/eventlist.js"></script>
+        <script type="text/javascript" src="js/web_request.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/eventlist.css" />
+        <script type="text/javascript">
+            $(document).ready(function(){});
+            
+            $(document).bind('mobileinit',function(){
+                $.mobile.loadingMessage = false;
+            })
+            
+            document.addEventListener("deviceready", onDeviceReady, false);
+            var menuStatus;
+            
+            function onDeviceReady() {
+                document.addEventListener("backbutton", onBackKeyDown, false);
+            }
+            
+            function onBackKeyDown(e) {
+              e.preventDefault();
+              window.location="menu.html":
+            }
+            
+            function onConfirm(button) {
+                if(button==2){//If User selected No, then we just do nothing
+                    return;
+                }else{
+                    navigator.app.exitApp();// Otherwise we quit the app.
+                }
+            }
+            
+            function goCalendar(){
+                window.location="calendarView.html";
+            }
+        </script>
+    </head>
+    <body id="pageBody" class="appBody">
+        <div data-role="app" class="app" id="app">
+            <div class="menuheader">
+                <div class="menuheaderleft">
+                    <button class="buttonbg" id="buttonbg">
+                        <img class="menubutton" src="img/arrowleft.png"/>
+                    </button>
+                </div>
+                <div class="menuheaderright">
+                     <button class="pagetitle"><img class="pageTitileImg" src="img/companylogo.png"/>RBS</button>
+<!--                    <button class="pageTitileImgBG" id="pageTitileImgBG" onclick=""></button>-->
+                </div>
+            </div>
+            <div class="actionDiv"><button class="actiontitle"></button>
+                <button class="confirmButton" id="buttonConfirm">
+                    <img src="img/myevent.jpg"/>
+                </button>
+            </div>
+            <div class="content">
+                <div class="pageone">
+                    <div class="wrapper" id="wrapper">
+                        <div class="scroll-content" id="scroll-content">
+                            <ul class="scrollul" id="scrollul">
+<!--
+                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td style='width:20%' ><img class='listviewimg' src='img/room.png'></td><td><h1 class='listviewitemtitle'>Meeting Room 1</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>In Use</p></td></tr></table>
+                                </li>
+                                <li class='scrollli' id='featuredrow2' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td style='width:20%'><img class='listviewimg' src='img/room.png'></td><td><h1 class='listviewitemtitle'>Meeting Room 2</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>Not In Use</p></td></tr></table>
+                                </li>
+                                <li class='scrollli' id='featuredrow3' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td style='width:20%'><img class='listviewimg' src='img/room.png'></td><td><h1 class='listviewitemtitle'>Meeting Room 3</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>Not In Use</p></td></tr></table>
+                                </li>
+-->
+                            </ul>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/iscroll-master/build/iscroll-lite.js"></script>
+ 
+        <script type="text/javascript">
+            app.initialize(); 
+            
+            var theScroll;
+            function scroll() {
+                theScroll = new iScroll('wrapper');
+            }
+                   
+
+            $(document).ready(function(){
+                dbmanager.initdb();
+
+                $("#buttonbg").on("click",function(startevent){
+                    window.location="menu.html";
+                });
+                
+                $("#buttonConfirm").on("click",function(startevent){
+                    window.location="calendarOverView.html";
+                });
+                
+                dbmanager.getSession(function(returnData){
+                    if(returnData.rows.length>0){
+
+                        loading.startLoading();
+                        getEventList(returnData.rows.item(0).token, returnData.rows.item(0).id);
+                    }
+                });
+
+            });
+            
+        </script>
+    </body>
+</html>

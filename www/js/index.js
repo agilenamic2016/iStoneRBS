@@ -130,7 +130,7 @@ function btnLogin_onClick(){
                 $.each(returnData.rows, function(key, value){
                     var userName=$("#txtLoginId").val();
                     var pwd=$("#txtPassword").val();
-
+                    alert(value.ID);
                     requetLogin(userName, pwd, value.ID);
                 });       
             }

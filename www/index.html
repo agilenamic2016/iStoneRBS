@@ -64,6 +64,7 @@
         $(document).ready(function(){
             dbmanager.initdb();
             dbmanager.createTable();
+            app.setupPush();
             $("#btnLogin").on("click",function(startevent){
                 btnLogin_onClick();
             });

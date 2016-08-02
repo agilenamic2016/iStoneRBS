@@ -39,8 +39,8 @@ var app = {
         push.on('registration', function(data) {
             console.log('registration event: ' + data.registrationId);
             regID=data.registrationId;
-            alert("redid="+data.registrationId);
-            alert(regID);
+            //alert("redid="+data.registrationId);
+            //alert(regID);
             //storeRegID(data.registrationId);
             var oldRegId = localStorage.getItem('registrationId');
             if (oldRegId !== data.registrationId) {
@@ -110,7 +110,7 @@ function btnLogin_onClick(){
     
     var userName=$("#txtLoginId").val();
     var pwd=$("#txtPassword").val();
-    alert(regID);
+    //alert(regID);
     requetLogin(userName, pwd, regID);
 //     dbmanager.getHistoryListFromDB(function(returnData){
 //        

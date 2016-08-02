@@ -35,7 +35,7 @@ var app = {
     onDeviceReady: function() {
         console.log('Received Device Ready Event');
         console.log('calling setup push');
-        alert("device ready");
+        alert("device ready a");
         app.setupPush();
     },
     setupPush: function() {

@@ -18,7 +18,6 @@
     <preference name="android-windowSoftInputMode" value="adjustPan"/>
     <preference name="android:configChanges" value="orientation|keyboardHidden"/>
     <preference name="webviewbounce" value="false" />
-    <preference name="prerendered-icon" value="true" />
     <preference name="stay-in-webview" value="false" />
     <preference name="ios-statusbarstyle" value="black-opaque" />
     <preference name="detect-data-types" value="true" />

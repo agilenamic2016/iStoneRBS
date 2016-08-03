@@ -8,6 +8,7 @@
         PhoneGap Team
     </author>
     <content src="index.html" />
+    <preference name="phonegap-version" value="cli-5.4.1" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarStyle" value="blacktranslucent" />

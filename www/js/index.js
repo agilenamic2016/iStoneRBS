@@ -39,7 +39,7 @@ var app = {
         push.on('registration', function(data) {
             console.log('registration event: ' + data.registrationId);
             regID=data.registrationId;
-            //alert("redid="+data.registrationId);
+            alert("redid="+data.registrationId);
             //alert(regID);
             //storeRegID(data.registrationId);
             var oldRegId = localStorage.getItem('registrationId');

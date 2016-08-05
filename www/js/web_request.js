@@ -157,7 +157,7 @@ function storeRoomList(data){
 }
 
 function successStoreRoomList(){
-    alert("success store key");
+    //alert("success store key");
 }
 
 function erroStoreStoreRoomList(err){

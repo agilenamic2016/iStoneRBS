@@ -76,7 +76,7 @@ function erroStoreSessionKeyLogin(err){
 function getRoomList(sessionkey){
     var requestUrl=webUrl+"/RBS/GetRooms";
     var jsonObj = {SessionKey :sessionkey};
-    alert(sessionkey);
+    
     $.ajax({
       url: requestUrl,
       type: "POST",
@@ -87,15 +87,16 @@ function getRoomList(sessionkey){
       timeout: apiTimeout,    
       success: function(data, status, xhr) {
         debugger;    
-        alert(JSON.stringify(data));
+       
         storeRoomList(data);
         
         
         dbmanager.getRoomListFromDB(function(returnData){
-            
+           
             if(returnData.rows.length>0)
             {
                 $.each(returnData.rows, function(key, value){
+        alert(key+";"+value);
                     var roomname='"'+value.name+'"';
                     $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='goCalendar("+value.id+", "+roomname+");'><table style='height:100%; width:100%;'><tr><td style='width:20%' ><img class='listviewimg' src='"+imageUrl+value.photoUrl+"'></td><td><h1 class='listviewitemtitle'>"+value.name+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table></li>");
                 });       
@@ -151,7 +152,7 @@ function storeRoomList(data){
 }
 
 function successStoreRoomList(){
-   // alert("success store key");
+    alert("success store key");
 }
 
 function erroStoreStoreRoomList(err){

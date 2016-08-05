@@ -98,7 +98,7 @@ function getRoomList(sessionkey){
                 for(var i=0;i<returnData.rows.length;i++){
                     alert(returnData.rows.item(i).name);
                     var roomname='"'+returnData.rows.item(i).name+'"';
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='goCalendar("+returnData.rows.item(i).id+", "+roomname+");'><table style='height:100%; width:100%;'><tr><td style='width:20%' ><img class='listviewimg' src='"+returnData.rows.item(i).photoUrl+"'></td><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).name+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table></li>");
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='goCalendar("+returnData.rows.item(i).id+", "+roomname+");'><table style='height:100%; width:100%;'><tr><td style='width:20%' ><img class='listviewimg' src='"+imageUrl+returnData.rows.item(i).photoUrl+"'></td><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).name+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table></li>");
                 }
         
 //                $.each(returnData.rows, function(key, value){
@@ -189,13 +189,22 @@ function getEventList(sessionkey, userid){
         
             if(returnData.rows.length>0)
             {
-                $.each(returnData.rows, function(key, value){
-                    var newdate=value.BookingDate.split("T");
-                    var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
-                    var neweTime=value.EndingTime.substr(0,2)+":"+value.EndingTime.substr(2,2);
+        
+                for(var i=0;i<returnData.rows.length;i++){
+                    var newdate=returnData.rows.item(i).BookingDate.split("T");
+                    var newsTime=returnData.rows.item(i).StartingTime.substr(0,2)+":"+returnData.rows.item(i).StartingTime.substr(2,2);
+                    var neweTime=returnData.rows.item(i).EndingTime.substr(0,2)+":"+returnData.rows.item(i).EndingTime.substr(2,2);
 
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
-                });       
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+    
+                }
+//                $.each(returnData.rows, function(key, value){
+//                    var newdate=value.BookingDate.split("T");
+//                    var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
+//                    var neweTime=value.EndingTime.substr(0,2)+":"+value.EndingTime.substr(2,2);
+//
+//                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+//                });       
             }
             else
             {
@@ -376,14 +385,21 @@ function bookingHistory(sessionkey, date,roomid){
         
             if(returnData.rows.length>0)
             {
-                $.each(returnData.rows, function(key, value){
-                    var newdate=value.BookingDate.split("T");
-                    var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
-                    var neweTime=value.EndingTime.substr(0,2)+":"+value.EndingTime.substr(2,2);
+                for(var i=0;i<returnData.rows.length;i++){
+                    var newdate=returnData.rows.item(i).BookingDate.split("T");
+                    var newsTime=returnData.rows.item(i).StartingTime.substr(0,2)+":"+returnData.rows.item(i).StartingTime.substr(2,2);
+                    var neweTime=returnData.rows.item(i).EndingTime.substr(0,2)+":"+returnData.rows.item(i).EndingTime.substr(2,2);
 
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
-                });       
-            }
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+                }
+//                $.each(returnData.rows, function(key, value){
+//                    var newdate=value.BookingDate.split("T");
+//                    var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
+//                    var neweTime=value.EndingTime.substr(0,2)+":"+value.EndingTime.substr(2,2);
+//
+//                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+//                });       
+//            }
             else
             {
                 alert("no data");

@@ -110,9 +110,16 @@ function getRoomList(sessionkey){
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
-        
-        alert("Failed to retrieve data.");
-        loading.endLoading();
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+            alert("Failed to retrieve data.");
+            loading.endLoading();   
+        }
       }
     })
 }
@@ -210,9 +217,17 @@ function getEventList(sessionkey, userid){
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+            alert("Failed to retrieve data.");
+        loading.endLoading();  
+        }
         
-        alert("Failed to retrieve data.");
-        loading.endLoading();
       }
     })
 }
@@ -312,9 +327,17 @@ function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeat
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
-        
-        alert("Book Room Failed");
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+             alert("Book Room Failed");
         loading.endLoading();
+        }
+       
       }
     })
 }
@@ -366,9 +389,17 @@ function bookingHistory(sessionkey, date,roomid){
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+            alert("Failed to retrieve data");
+            loading.endLoading();
+        }
         
-        alert("Failed to retrieve data");
-        loading.endLoading();
       }
     })
 }
@@ -468,9 +499,17 @@ function addAttList(sessionkey, meetingid, ID){
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+            alert("Failed to call server "+JSON.stringify(xhr));
+            loading.endLoading();
+        }
         
-        alert("Failed to call server "+JSON.stringify(xhr));
-        loading.endLoading();
       }
     })
 }

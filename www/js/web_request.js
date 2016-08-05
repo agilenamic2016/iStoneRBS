@@ -1,7 +1,7 @@
 var domainUrl="http://52.207.238.42";
 var webUrl = domainUrl+"/RBS/api";
 var imageUrl=domainUrl+"/upload/";
-var webUrl = "http://localhost:11175/api";
+//var webUrl = "http://localhost:11175/api";
 
 var apiTimeout=30000;
 

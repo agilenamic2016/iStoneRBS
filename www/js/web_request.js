@@ -1,7 +1,7 @@
 var domainUrl="http://52.207.238.42";
 var webUrl = domainUrl+"/RBS/api";
 var imageUrl=domainUrl+"/upload/";
-//var webUrl = "http://localhost:11175/api";
+var webUrl = "http://localhost:11175/api";
 
 var apiTimeout=30000;
 
@@ -21,14 +21,18 @@ function requetLogin(userName, pwd, regid){
       success: function(data, status, xhr) {
         debugger;    
 
-        storeSessionKey(data.SessionKey, data.UserID, '');
-        window.location="menu.html";
-        loading.endLoading();
+        if(data.SessionKey.length!=0){
+            storeSessionKey(data.SessionKey, data.UserID, '');
+        }
+        else{
+           alert("Login failed.");
+           loading.endLoading();
+        }
+        
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
-        
-        alert("Failed to call server "+JSON.stringify(xhr));
+        alert("Login failed."+xhr.responseText);
         loading.endLoading();
       }
     })
@@ -47,11 +51,23 @@ function storeSessionKey(sessionKey, id, registrationid){
             tx.executeSql(
                 'INSERT INTO sessionKey (token, id, registrationid) VALUES (?, ?, ?)', 
                 profile.values1,
-                successStoreSessionKey,
-                erroStoreSessionKey
+                successStoreSessionKeyLogin,
+                erroStoreSessionKeyLogin
             );
         });
     }
+}
+
+function successStoreSessionKeyLogin(){
+   // alert("success store key");
+    loading.endLoading();
+    window.location="menu.html";
+}
+
+function erroStoreSessionKeyLogin(err){
+  //  alert("failed");
+    loading.endLoading();
+    alert("Login failed."+err);
 }
 
 
@@ -86,7 +102,7 @@ function getRoomList(sessionkey){
             }
             else
             {
-                alert("no data");
+                $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td style='width:20%' ></td><td><h1 class='listviewitemtitle'>No data</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table></li>");
             }
         });
     
@@ -95,7 +111,7 @@ function getRoomList(sessionkey){
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
         
-        alert("Failed to call server "+JSON.stringify(xhr));
+        alert("Failed to retrieve data.");
         loading.endLoading();
       }
     })
@@ -119,12 +135,21 @@ function storeRoomList(data){
                 tx.executeSql(
                     'INSERT INTO roomList (id, name, photoUrl) VALUES (?,?,?)', 
                     dataObj.values1,
-                    successStoreSessionKey,
-                    erroStoreSessionKey
+                    successStoreRoomList,
+                    erroStoreStoreRoomList
                 );
             });
         }
     });
+}
+
+function successStoreRoomList(){
+   // alert("success store key");
+}
+
+function erroStoreStoreRoomList(err){
+    alert("Failed to retrieve data.");
+    loading.endLoading();
 }
 
 function getEventList(sessionkey, userid){
@@ -161,7 +186,7 @@ function getEventList(sessionkey, userid){
             }
             else
             {
-                alert("no data");
+                $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>No data</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table> </li>");
             }
         });
 
@@ -186,7 +211,7 @@ function getEventList(sessionkey, userid){
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
         
-        alert("Failed to call server "+JSON.stringify(xhr));
+        alert("Failed to retrieve data.");
         loading.endLoading();
       }
     })
@@ -212,12 +237,21 @@ function storeUserHistoryList(data){
                 tx.executeSql(
                     'INSERT INTO userhistoryList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime) VALUES (?,?,?,?,?,?,?)', 
                     dataObj.values1,
-                    successStoreSessionKey,
-                    erroStoreSessionKey
+                    successStoreEventList,
+                    erroStoreStoreEventList
                 );
             });
         }
     });
+}
+
+function successStoreEventList(){
+   // alert("success store key");
+}
+
+function erroStoreStoreEventList(err){
+    alert("Failed to retriev data.");
+    loading.endLoading();
 }
 
 
@@ -279,7 +313,7 @@ function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeat
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
         
-        alert("Failed to call server "+JSON.stringify(xhr));
+        alert("Book Room Failed");
         loading.endLoading();
       }
     })
@@ -333,7 +367,7 @@ function bookingHistory(sessionkey, date,roomid){
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
         
-        alert("Failed to call server "+JSON.stringify(xhr));
+        alert("Failed to retrieve data");
         loading.endLoading();
       }
     })
@@ -358,12 +392,21 @@ function storeHistoryList(data){
                 tx.executeSql(
                     'INSERT INTO historyList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime) VALUES (?,?,?,?,?,?,?)', 
                     dataObj.values1,
-                    successStoreSessionKey,
-                    erroStoreSessionKey
+                    successStoreBookingHistoryList,
+                    erroStoreBookingHistoryList
                 );
             });
         }
     });
+}
+
+function successStoreBookingHistoryList(){
+   // alert("success store key");
+}
+
+function erroStoreBookingHistoryList(err){
+    alert("Failed to retrieve data.");
+    loading.endLoading();
 }
 
 function getUserList(sessionkey){
@@ -389,7 +432,7 @@ function getUserList(sessionkey){
         }
         else
         {                
-            alert("no data");
+            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>No data</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p><td></td></tr></table></li>");
         }
 
     
@@ -398,7 +441,7 @@ function getUserList(sessionkey){
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
         
-        alert("Failed to call server "+JSON.stringify(xhr));
+        alert("Failed to retrieve data");
         loading.endLoading();
       }
     })

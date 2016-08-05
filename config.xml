@@ -137,6 +137,7 @@
     </platform>
 -->
     <icon src="icon.png" />
+    <gap:splash src="splash.png" />
     
     <key>UIStatusBarHidden</key>
     <true/>

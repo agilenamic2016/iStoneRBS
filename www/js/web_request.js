@@ -76,7 +76,7 @@ function erroStoreSessionKeyLogin(err){
 function getRoomList(sessionkey){
     var requestUrl=webUrl+"/RBS/GetRooms";
     var jsonObj = {SessionKey :sessionkey};
-    
+    alert(sessionkey);
     $.ajax({
       url: requestUrl,
       type: "POST",
@@ -87,7 +87,7 @@ function getRoomList(sessionkey){
       timeout: apiTimeout,    
       success: function(data, status, xhr) {
         debugger;    
-
+        alert(JSON.stringify(data));
         storeRoomList(data);
         
         

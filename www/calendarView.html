@@ -202,11 +202,11 @@
                 </div>
                 <div class="inputField" style="top:85%;width:100%;display:none;" id="endDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Start Date</span>
-                    <input id="startDate" class="comboTime" style="left:30%;width:50%;"/>  
+                    <input id="startDate" class="comboTime" style="left:30%;width:50%;" readonly="true"/>  
                 </div>
                 <div class="inputField" style="top:92%;width:100%;display:none;" id="startDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;End Date </span>
-                    <input id="endDate" class="comboTime" style="left:30%;width:50%;" type="text"/>
+                    <input id="endDate" class="comboTime" style="left:30%;width:50%;" type="text" readonly="true"/>
                 </div>
                 <div class="inputField" style="bottom:15%;display:none;"><h1>Booking history</h1></div>
                 <div class="pageone" style="display:none">
@@ -238,28 +238,10 @@
                                           });
               $( function() {
                 $( "#startDate" ).datepicker({
-                    showOn: 'button',
-                    onClose: function(dateText, inst) 
-                    { 
-                        $(this).attr("disabled", false);
-                    },
-                    beforeShow: function(input, inst) 
-                    {
-                        $(this).attr("disabled", true);
-                    }
                 });
               } );
             $( function() {
-                $( "#endDate" ).datepicker({
-                    showOn: 'button',
-                    onClose: function(dateText, inst) 
-                    { 
-                        $(this).attr("disabled", false);
-                    },
-                    beforeShow: function(input, inst) 
-                    {
-                        $(this).attr("disabled", true);
-                    }
+                $( "#endDate" ).datepicker({                    
                 });
               } );
             var theScroll;

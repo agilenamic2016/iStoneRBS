@@ -342,15 +342,22 @@ function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeat
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
+        
+        var jsonResponse = JSON.parse(xhr.responseText);
+        
         if(xhr.statusText=="Unauthorized"){
             alert("Session timeout. Please login again.");
             dbmanager.logout();
             window.location="index.html";
             
         }
+        else if(jsonResponse.Message=="This time slot has been booked."){
+            alert("This time slot has been booked.");
+            loading.endLoading();
+        }
         else{
              alert("Book Room Failed");
-        loading.endLoading();
+            loading.endLoading();
         }
        
       }

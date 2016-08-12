@@ -1,4 +1,6 @@
 var filtermenustatus=0;
+var meetingid;
+var detailRoomId;
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
@@ -63,7 +65,7 @@ var dbmanager = {
         });
     },
     
-     getRoomListFromDB:function(returnData){
+    getRoomListFromDB:function(returnData){
         db.transaction(function(tx){
             tx.executeSql('SELECT * FROM roomList', [], function(tx, rs){
                 returnData(rs);
@@ -90,6 +92,22 @@ var dbmanager = {
     getRegID:function(returnData){
         db.transaction(function(tx){
             tx.executeSql('SELECT * FROM RegID', [], function(tx, rs){
+                returnData(rs);
+          }, this.errorExecuteSQL);
+        });
+    },
+    
+    getHistoryListFromDBByID:function(returnData){
+        db.transaction(function(tx){
+            tx.executeSql('SELECT * FROM historyList where ID='+meetingid, [], function(tx, rs){
+                returnData(rs);
+          }, this.errorExecuteSQL);
+        });
+    },
+    
+    getRoomListFromDBById:function(returnData){
+        db.transaction(function(tx){
+            tx.executeSql('SELECT * FROM roomList where id='+detailRoomId, [], function(tx, rs){
                 returnData(rs);
           }, this.errorExecuteSQL);
         });

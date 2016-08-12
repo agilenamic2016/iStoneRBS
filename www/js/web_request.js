@@ -138,7 +138,7 @@ function storeRoomList(data){
     
     $.each(data, function(key, value){
         var dataObj = {
-        values1 : [value.ID, value.Name, value.PhotoFileName]
+        values1 : [value.ID.toString(), value.Name, value.PhotoFileName]
         };
 
         insertRoomList(dataObj);
@@ -186,7 +186,7 @@ function getEventList(sessionkey, userid){
         
         
         dbmanager.getHistoryListFromDB(function(returnData){
-        
+            var your_dates=[];
             if(returnData.rows.length>0)
             {
         
@@ -195,9 +195,25 @@ function getEventList(sessionkey, userid){
                     var newsTime=returnData.rows.item(i).StartingTime.substr(0,2)+":"+returnData.rows.item(i).StartingTime.substr(2,2);
                     var neweTime=returnData.rows.item(i).EndingTime.substr(0,2)+":"+returnData.rows.item(i).EndingTime.substr(2,2);
 
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='gotoDetails("+returnData.rows.item(i).ID+", "+returnData.rows.item(i).RoomID+")'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+                    
+                    your_dates.push(new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2)));
     
                 }
+           
+                $( "#datepicker" ).datepicker({ 
+                    altField: '#dateBooking',
+                    beforeShowDay: function(date) {
+                          // check if date is in your array of dates
+                          if(inArrayDates(date, your_dates)==-1) {
+                             // if it is return the following.
+                             return [true, 'css-class-to-highlight', ''];
+                          } else {
+                             // default
+                             return [true, '', ''];
+                          }
+                       }
+                  });
 //                $.each(returnData.rows, function(key, value){
 //                    var newdate=value.BookingDate.split("T");
 //                    var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
@@ -539,6 +555,48 @@ function addAttList(sessionkey, meetingid, ID){
             loading.endLoading();
         }
         
+      }
+    })
+}
+
+function getAtteendeeList(sessionkey, meetingid){
+    var requestUrl=webUrl+"/RBS/GetAttendeesByMeetingId";
+    var jsonObj = {SessionKey :sessionkey, MeetingID:meetingid};
+    
+    $.ajax({
+      url: requestUrl,
+      type: "POST",
+      ContentType: "application/json",
+      async: true, 
+      dataType : "JSON",
+      data:jsonObj,
+      timeout: apiTimeout,    
+      success: function(data, status, xhr) {
+        debugger;    
+       
+        var userList="";
+       
+        for(var z=0; z<data.length; z++){
+            var count=z+1;
+            userList=userList+count+") "+data[z].Username+"<br>";
+        }
+    
+        $("#scrollul").append("<li class='scrollli' id='featuredrow1'><br><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle' style='font-size:5vw;line-height:6vw'>Attendees: </h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails' style='font-size:4vw;line-height:5vw'>"+userList+"</p></td></tr></table></li>");
+
+        loading.endLoading();
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        debugger;
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+            alert("Failed to retrieve data.");
+            loading.endLoading();   
+        }
       }
     })
 }

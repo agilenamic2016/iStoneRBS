@@ -11,11 +11,11 @@
         <script type="text/javascript" src="js/jquery/jquery.js"></script>
         <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
         <script type="text/javascript" src="js/common.js"></script>
-        <script type="text/javascript" src="js/calendarOverView.js"></script>
+        <script type="text/javascript" src="js/meetingDetail.js"></script>
         <script type="text/javascript" src="js/web_request.js"></script>
         <link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="css/common.css" />
-        <link rel="stylesheet" type="text/css" href="css/calendarOverView.css" />
+        <link rel="stylesheet" type="text/css" href="css/meetingDetail.css" />
         <script type="text/javascript">
             $(document).ready(function(){
                 $(".ui-select span").hide();
@@ -71,11 +71,11 @@
             </div>
             <div class="content">
                 <br>
-                <center>
+                <!--<center>
                     <div id="datepicker" style="width:100%"></div>
-                </center>
+                </center>-->
 <!--                <textarea id="txtPurpose" maxlength="500"></textarea>-->
-                <div class="inputField" style="bottom:40%;"><h1>Event List</h1></div>
+                <div class="inputField" style="bottom:15%;"><h1>Event List</h1></div>
                 <div class="pageone">
                     <div class="wrapper" id="wrapper">
                         <div class="scroll-content" id="scroll-content">
@@ -113,14 +113,7 @@
                     window.history.back();
                 });
                 
-                dbmanager.getSession(function(returnData){
-                    if(returnData.rows.length>0){
-
-                        loading.startLoading();
-                        getEventList(returnData.rows.item(0).token, returnData.rows.item(0).id);
-                    }
-                });
-/*                dbmanager.getHistoryListFromDB(function(returnData){
+                /*dbmanager.getHistoryListFromDB(function(returnData){
                     var your_dates=[];
                     if(returnData.rows.length>0)
                     {
@@ -151,8 +144,42 @@
                     
                     
                 });*/
-
+                var meetingidurl=getUrlParameter("id");
+                var roomidurl=getUrlParameter("rumid");
+                meetingid=meetingidurl;
+                detailRoomId=roomidurl;
+                
+                dbmanager.getHistoryListFromDBByID(function(returnData){
+                    if(returnData.rows.length>0)
+                    {
+                        for(var i=0;i<returnData.rows.length;i++){
                     
+                            var roomname='"'+returnData.rows.item(i).name+'"';
+                            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><br><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle' style='font-size:5vw;line-height:6vw'>Meeting :</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails' style='font-size:4vw;line-height:5vw'>"+returnData.rows.item(i).Title+"</p></td></tr></table></li>");
+                            
+                            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><br><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle' style='font-size:5vw;line-height:6vw'>Purpose: </h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails' style='font-size:4vw;line-height:5vw'>"+returnData.rows.item(i).Purpose+"</p></td></tr></table></li>");
+                        }
+                    }
+                });   
+                
+                dbmanager.getRoomListFromDBById(function(returnData){
+                    if(returnData.rows.length>0){
+                        for(var i=0;i<returnData.rows.length;i++){
+                            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><br><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle' style='font-size:5vw;line-height:6vw'>Location: </h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails' style='font-size:4vw;line-height:5vw'>"+returnData.rows.item(i).name+"</p></td></tr></table></li>");
+                        }
+                    }
+                });
+                
+                dbmanager.getSession(function(returnData){
+                    if(returnData.rows.length>0){
+                        loading.startLoading();
+                        getAtteendeeList(returnData.rows.item(0).token, meetingid);
+                    }
+                    else{
+                        loading.endLoading();  
+                        alert("no token");
+                    }
+                });
                 
             });
             
@@ -165,10 +192,6 @@
                     }
                 }
                 return 0;
-            }
-            
-            function gotoDetails(meetingNo, roomid){
-                 window.location="meetingDetail.html?id="+meetingNo+"&rumid="+roomid;
             }
             
         </script>

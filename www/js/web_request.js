@@ -214,6 +214,8 @@ function getEventList(sessionkey, userid){
                           }
                        }
                   });
+                    
+                $("#eventitle").css("display", "");
 //                $.each(returnData.rows, function(key, value){
 //                    var newdate=value.BookingDate.split("T");
 //                    var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);

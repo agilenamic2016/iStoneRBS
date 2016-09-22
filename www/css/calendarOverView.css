@@ -33,8 +33,11 @@
     transition: transform 400ms ease;
 }
 
-
-
+.ui-state-active, .ui-widget-content .ui-state-active {
+  /*any CSS styles you want overriden i.e.*/
+  border: 1px solid #999999;
+  background-color: lightskyblue;
+}
 /* content page stry end*/
 /* ------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------*/
@@ -216,5 +219,14 @@ h1{
 }
 
 .css-class-to-highlight{
-       background-color: red;
+       background-color: none; !important
+}
+
+.css-class-to-highlight a {
+    background: yellow !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active {
+  /*any CSS styles you want overriden i.e.*/
+  border: none;
 }

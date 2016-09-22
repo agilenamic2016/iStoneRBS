@@ -208,6 +208,7 @@ function getEventList(sessionkey, userid){
                           if(inArrayDates(date, your_dates)==-1) {
                              // if it is return the following.
                              return [true, 'css-class-to-highlight', ''];
+                              
                           } else {
                              // default
                              return [true, '', ''];

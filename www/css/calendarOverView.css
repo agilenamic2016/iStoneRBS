@@ -226,7 +226,18 @@ h1{
     background: yellow !important;
 }
 
-.ui-state-active, .ui-widget-content .ui-state-active {
-  /*any CSS styles you want overriden i.e.*/
-  border: none;
+#ui-datepicker-div .ui-state-highlight {
+    border: none;
+    background: transparent;
+    color: #363636;
+}
+
+.ui-state-highlight{
+    border:1px solid #d3d3d3/*{borderColorDefault}*/ !important;
+    background:#F5F5F5/*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/!important;
+    color:black;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+     border:1px solid #aaaaaa/*{borderColorActive}*/ !important;
+    background:#F5F5F5/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/!important;
 }

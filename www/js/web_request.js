@@ -1,7 +1,8 @@
 var domainUrl="http://52.207.238.42";
-var webUrl = domainUrl+"/RBS/api";
+//var webUrl = domainUrl+"/RBS/api";
 var imageUrl=domainUrl+"/upload/";
 //var webUrl = "http://localhost:11175/api";
+var webUrl = "http://192.168.1.7"+"/rbsdev/api";
 
 var apiTimeout=30000;
 
@@ -198,24 +199,64 @@ function getEventList(sessionkey, userid){
                     $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='gotoDetails("+returnData.rows.item(i).ID+", "+returnData.rows.item(i).RoomID+")'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
                     
                     your_dates.push(new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2)));
-    
+                    
+//                    var rtype=returnData.rows.item(i).rtype;
+//                    if(rtype=='0'){
+//                        your_dates.push(new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2)));
+//                    }
+//                    else if(rtype=='1'){
+//                        var newstartdatedt=new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2));
+//        
+//                        var newenddate=returnData.rows.item(i).enddate.split('-');
+//                        var newenddatedt=new Date(newenddate[0], newenddate[1]-1, newenddate[2]);
+//                        
+//                        var recurrence = recurringDates(newstartdatedt, newenddatedt, 1, 'Date', false);
+//                        
+//                        $.each(recurrence, function(key, value){
+//                           your_dates.push(value);
+//                        });
+//                    }
+//                    else if(rtype=='2'){
+//                        var newstartdatedt=new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2));
+//        
+//                        var newenddate=returnData.rows.item(i).enddate.split('-');
+//                        var newenddatedt=new Date(newenddate[0], newenddate[1]-1, newenddate[2]);
+//          
+//                        var recurrence = recurringDates(newstartdatedt, newenddatedt, 7, 'Date', false);
+//                        
+//                        $.each(recurrence, function(key, value){
+//                           your_dates.push(value);
+//                        });
+//                    }
+//                    else if(rtype=='3'){
+//                        var newstartdatedt=new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2));
+//        
+//                        var newenddate=returnData.rows.item(i).enddate.split('-');
+//                        var newenddatedt=new Date(newenddate[0], newenddate[1]-1, newenddate[2]);
+//          
+//                        var recurrence = recurringDates(newstartdatedt, newenddatedt, 1, 'Month', false);
+//                        
+//                        $.each(recurrence, function(key, value){
+//                           your_dates.push(value);
+//                        });
+//                    }
                 }
            
+
                 $( "#datepicker" ).datepicker({ 
-                    altField: '#dateBooking',
                     beforeShowDay: function(date) {
                           // check if date is in your array of dates
                           if(inArrayDates(date, your_dates)==-1) {
                              // if it is return the following.
                              return [true, 'css-class-to-highlight', ''];
-                              
-                          } else {
+                          } 
+                          else {
                              // default
                              return [true, '', ''];
                           }
                        }
                   });
-                    
+
                 $("#eventitle").css("display", "");
 //                $.each(returnData.rows, function(key, value){
 //                    var newdate=value.BookingDate.split("T");
@@ -403,7 +444,6 @@ function bookingHistory(sessionkey, date,roomid){
       success: function(data, status, xhr) {
         debugger;    
 
-        
         storeHistoryList(data);
         
         
@@ -453,7 +493,6 @@ function bookingHistory(sessionkey, date,roomid){
 }
 
 function storeHistoryList(data){
-   
     db.transaction(function(tx) {
         tx.executeSql('DELETE FROM historyList');    
     });
@@ -461,15 +500,15 @@ function storeHistoryList(data){
     $.each(data, function(key, value){
         
         var dataObj = {
-        values1 : [value.ID, value.RoomID, value.Title, value.Purpose, value.BookingDate, value.StartingTime, value.EndingTime]
+        values1 : [value.ID, value.RoomID, value.Title, value.Purpose, value.BookingDate, value.StartingTime, value.EndingTime, value.RecurenceType.toString(), value.SCCStartDate, value.SCCEndDate]
         };
-
+        
         insertHistoryListList(dataObj);
 
         function insertHistoryListList(dataObj) {
             db.transaction(function(tx) {
                 tx.executeSql(
-                    'INSERT INTO historyList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime) VALUES (?,?,?,?,?,?,?)', 
+                    'INSERT INTO historyList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime, rtype, startdate, enddate) VALUES (?,?,?,?,?,?,?,?,?,?)', 
                     dataObj.values1,
                     successStoreBookingHistoryList,
                     erroStoreBookingHistoryList
@@ -480,7 +519,7 @@ function storeHistoryList(data){
 }
 
 function successStoreBookingHistoryList(){
-   // alert("success store key");
+    //alert("success store key");
 }
 
 function erroStoreBookingHistoryList(err){

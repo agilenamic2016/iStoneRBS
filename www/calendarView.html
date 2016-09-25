@@ -200,11 +200,11 @@
                     <option>Monthly</option>
                 </select>   
                 </div>
-                <div class="inputField" style="top:85%;width:100%;display:none;" id="endDateDiv">
+                <div class="inputField" style="top:85%;width:100%;display:none;" id="startDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Start Date</span>
                     <input id="startDate" class="comboTime" style="left:30%;width:50%;" readonly="true"/>  
                 </div>
-                <div class="inputField" style="top:92%;width:100%;display:none;" id="startDateDiv">
+                <div class="inputField" style="top:85%;width:100%;display:none;" id="endDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;End Date </span>
                     <input id="endDate" class="comboTime" style="left:30%;width:50%;" type="text" readonly="true"/>
                 </div>
@@ -244,6 +244,8 @@
                 $( "#endDate" ).datepicker({                    
                 });
               } );
+            
+            
             var theScroll;
             function scroll() {
                 theScroll = new iScroll('wrapper');
@@ -287,7 +289,7 @@
                             }
                             else{
                                 loading.startLoading();
-                                bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#startDate").val(),$("#endDate").val())
+                                bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val())
                             }
                         }
                     });
@@ -302,7 +304,7 @@
                 }
                 else{
                     $("#endDateDiv").css("display", "");
-                    $("#startDateDiv").css("display", "");
+                    $("#startDateDiv").css("display", "none");
                 }
                 
             }

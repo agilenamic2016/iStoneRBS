@@ -56,3 +56,26 @@ function btnBooking_onClick(){
     loading.startLoading();
     
 }
+
+function recurringDates(startDate, endDate, interval, intervalType, noweekends) {
+    intervalType = intervalType || 'Date';
+    var date = startDate;
+    var recurrent = [];
+    var setget = {set: 'set'+intervalType, get: 'get'+intervalType};
+
+    while (date < endDate) {
+      recurrent.push( noweekends ? noWeekend() : new Date(date) );
+      date[setget.set](date[setget.get]()+interval);
+    }
+
+    // add 1 day for sunday, subtract one for saturday
+    function noWeekend() {
+        var add, currdate = new Date(date), day = date.getDay();
+        if (~[6,0].indexOf(day)) {
+          currdate.setDate(currdate.getDate() + (add = day == 6 ? -1 : 1));
+        }
+        return new Date(currdate);
+    }
+
+    return recurrent;
+}

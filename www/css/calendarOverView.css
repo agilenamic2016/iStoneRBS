@@ -241,3 +241,7 @@ h1{
      border:1px solid #aaaaaa/*{borderColorActive}*/ !important;
     background:#F5F5F5/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/!important;
 }
+
+div.ui-datepicker{
+ font-size:4vw;
+}

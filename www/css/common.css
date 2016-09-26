@@ -60,8 +60,7 @@ input{
     border: 1px solid black;
 /*    border-color:black;*/
     border-style: solid;
-    opacity:0.5;
-    
+    opacity:1;
 }
 
 input:focus { 
@@ -293,6 +292,7 @@ textarea {
     display: inline-block;
     position: absolute;
     left:30%;
+    font-size: 3vw;
 }
 
 .btnCommon{

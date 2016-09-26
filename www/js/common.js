@@ -54,6 +54,8 @@ var dbmanager = {
             t.executeSql('delete from historyList');
             t.executeSql('delete from RegID');
             t.executeSql('delete from userhistoryList');
+            
+            window.location="index.html";
         }
     },
     

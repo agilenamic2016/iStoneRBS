@@ -19,14 +19,14 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $(".ui-select span").hide();
-                //$("#buttonbg").on("touchstart",function(startevent){
-                  //  goBack();
-                //});
+                $("#buttonbg").on("touchstart",function(startevent){
+                    goBack();
+                });
             });
             
-//            function goBack(){
-//                window.location="roomList.html";    
-//            }
+            function goBack(){
+                window.location="menu.html";    
+            }
             
             $(document).bind('mobileinit',function(){
                 $.mobile.loadingMessage = false;
@@ -36,12 +36,13 @@
             var menuStatus;
             
             function onDeviceReady() {
-                //document.addEventListener("backbutton", onBackKeyDown, false);
+                document.addEventListener("backbutton", onBackKeyDown, false);
             }
             
-//            function onBackKeyDown(e) {
-//              e.preventDefault();
-//            }
+            function onBackKeyDown(e) {
+              e.preventDefault();
+                goBack();
+            }
         </script>
     </head>
     <body id="pageBody" class="appBody">
@@ -108,9 +109,9 @@
             $(document).ready(function(){
                 dbmanager.initdb();    
                 
-                $("#buttonbg").on("click",function(startevent){
-                    window.history.back();
-                });
+//                $("#buttonbg").on("click",function(startevent){
+//                    window.history.back();
+//                });
                 
                 dbmanager.getSession(function(returnData){
                     if(returnData.rows.length>0){

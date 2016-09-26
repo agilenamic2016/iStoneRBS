@@ -62,10 +62,10 @@
             </div>
             <div class="content">
                 <br>
-                <center><button id="btnMyEvent" class="menubtn"><img src="img/myevent.jpg" class="buttonImg"/><b>Events</b></button><br><br></center>
-                <center><button id="btnBook" class="menubtnBook"><img src="img/booknow.png" class="buttonImg"/><b>Booking</b></button></center><br><br>
-                <button id="btnlogout" class="menubtnlogout"><img src="img/logout.png" class="buttonImg"/><b>Logout</b></button>
-            </div>
+                <center><button id="btnMyEvent" class="menubtn"><img src="img/myevent.jpg" class="buttonImg"/><b></b></button><br><br></center>
+                <center><button id="btnBook" class="menubtnBook"><img src="img/booknow.png" class="buttonImg"/><b></b></button></center><br><br>
+                <button id="btnlogout" class="menubtnlogout"><img src="img/logout.png" class="buttonImg"/><b></b></button>
+            </div> 
         </div>
         <script type="text/javascript" src="js/iscroll-master/build/iscroll-lite.js"></script>
  
@@ -92,7 +92,6 @@
                 $("#btnlogout").on("click",function(startevent){
                     
                     dbmanager.logout();
-                    window.location="index.html";
                 });
                 
                 dbmanager.getSession(function(returnData){

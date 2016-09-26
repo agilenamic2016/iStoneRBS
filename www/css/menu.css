@@ -174,7 +174,9 @@
 .menubtn img{
     height: 100%;
     width: auto;
-    margin: 0;
+    position: absolute;
+    top:0;
+    left:0;   
 }
 
 .menubtnBook{
@@ -195,7 +197,9 @@
 .menubtnBook img{
     height: 100%;
     width: auto;
-    margin: 0;
+    position: absolute;
+    top:0;
+    left:0;
 }
 
 .menubtnlogout{
@@ -214,4 +218,7 @@
 .menubtnlogout img{
     height: 100%;
     width: auto;
+    position: absolute;
+    top:0;
+    left:0;
 }

@@ -25,7 +25,7 @@
             });
             
             function goBack(){
-                window.location="roomList.html";    
+                window.location="calendarOverView.html";    
             }
             
             $(document).bind('mobileinit',function(){
@@ -109,9 +109,9 @@
                 dbmanager.initdb();
                 
                 
-                $("#buttonbg").on("click",function(startevent){
-                    window.history.back();
-                });
+//                $("#buttonbg").on("click",function(startevent){
+//                    window.history.back();
+//                });
                 
                 /*dbmanager.getHistoryListFromDB(function(returnData){
                     var your_dates=[];

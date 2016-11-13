@@ -26,12 +26,12 @@
             var menuStatus;
             
             function onDeviceReady() {
-                //document.addEventListener("backbutton", onBackKeyDown, false);
+                document.addEventListener("backbutton", onBackKeyDown, false);
             }
             
             function onBackKeyDown(e) {
               e.preventDefault();
-              navigator.notification.confirm("Are you sure you want to exit ?", onConfirm, "Confirmation", "Yes,No");     
+              //navigator.notification.confirm("Are you sure you want to exit ?", onConfirm, "Confirmation", "Yes,No");     
             }
             
             function onConfirm(button) {
@@ -62,7 +62,14 @@
                 </div>
             </div>
             <div class="actionDiv"><button class="actiontitle">Add and notify attendees</button>
+<!--
                 <button class="confirmButton" id="buttonConfirm">
+                    <img src="img/confirm.png"/>
+                </button>
+-->
+            </div>
+            <div class="btnConfirm" style="bottom:10%;left:0%;background:blue;">
+                <button id="buttonConfirm" class="confirmButton">
                     <img src="img/confirm.png"/>
                 </button>
             </div>
@@ -93,7 +100,9 @@
                 var userlistarr=[];
                 
                 $('#userlist:checked').each(function() {
-                   userlistarr.push({ID:$(this).val()});
+                   var arrsplit=$(this).val().split("|||");
+                   var memberid=arrsplit[0]; 
+                   userlistarr.push({ID:memberid});
                  });
                 
                 if(userlistarr.length==0)

@@ -120,10 +120,9 @@
     font-family: "Roboto-Regular";
     font-size: 3vw;
     font-weight: normal;
-    line-height: 3.5vw;
+    line-height: 5vw;
     text-align: justify;
     margin: 10px 0px 0px 10px;
-    max-height: 10.5vw;
     text-overflow: clip;
     overflow: hidden;
     padding: 10px 10px 10px 10px;
@@ -199,6 +198,34 @@
     border: none;
     position:absolute;
     right: 2%;
+}
+
+#btnDelete{
+    height: 7vh;
+    width: 7vh;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    padding: 0px;
+    margin: 0px;
+    z-index: 99;
+    bottom: 5%;
+    right: 5%;
+}
+
+#btnEdit{
+    height: 7vh;
+    width: 7vh;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    padding: 0px;
+    margin: 0px;
+    z-index: 99;
+    bottom: 15%;
+    right: 5%;
 }
 /* time selection end*/
 /* ------------------------------------------------------------------------------------*/

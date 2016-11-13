@@ -62,7 +62,7 @@
             </div>
             <div class="content">
                 <br>
-                <center><button id="btnMyEvent" class="menubtn"><img src="img/myevent.jpg" class="buttonImg"/><b></b></button><br><br></center>
+                <center><button id="btnMyEvent" class="menubtn"><img src="img/calendar.png" class="buttonImg"/><b></b></button><br><br></center>
                 <center><button id="btnBook" class="menubtnBook"><img src="img/booknow.png" class="buttonImg"/><b></b></button></center><br><br>
                 <button id="btnlogout" class="menubtnlogout"><img src="img/logout.png" class="buttonImg"/><b></b></button>
             </div> 
@@ -90,8 +90,7 @@
                 });
                 
                 $("#btnlogout").on("click",function(startevent){
-                    
-                    dbmanager.logout();
+                    navigator.notification.confirm("Are you sure you want to logout?", onConfirmLogout, "Confirmation", "Yes,No");     
                 });
                 
                 dbmanager.getSession(function(returnData){
@@ -102,6 +101,14 @@
                 });
 
             });
+            
+            function onConfirmLogout(button) {
+                if(button==2){//If User selected No, then we just do nothing
+                    return;
+                }else{
+                    dbmanager.logout();
+                }
+            }
             
         </script>
     </body>

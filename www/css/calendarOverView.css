@@ -14,7 +14,7 @@
 .pageone{
     background-color: white;
     width: 100%;
-    height: 40%;
+    height: 45%;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0%;
     display: inline-block;
@@ -234,14 +234,14 @@ h1{
 
 .ui-state-highlight{
     border:1px solid #d3d3d3/*{borderColorDefault}*/ !important;
-    background:#F5F5F5/*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/!important;
+    background:none/*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/!important;
     color:black;
 }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
      border:1px solid #aaaaaa/*{borderColorActive}*/ !important;
-    background:#F5F5F5/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/!important;
+    background:none/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/!important;
 }
 
 div.ui-datepicker{
- font-size:4vw;
+ font-size:3.5vw;
 }

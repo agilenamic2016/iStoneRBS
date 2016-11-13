@@ -157,8 +157,8 @@
 /* ------------------------------------------------------------------------------------*/
 /* menu btn end*/
 .menubtn{
-    height: 40vw;
-    width: 40vw;
+    height: 35vw;
+    width: 35vw;
     border: none;
     outline: none;
     background-color: transparent;
@@ -166,7 +166,7 @@
     padding: 0;
     position: absolute;
     top:10vw;
-    left:30vw;
+    left:32.5vw;
     font-size: 7vw;
     font-family: 'Roboto-Bold';
 }
@@ -180,8 +180,8 @@
 }
 
 .menubtnBook{
-    height: 40vw;
-    width: 40vw;
+    height: 35vw;
+    width: 35vw;
     border: none;
     outline: none;
     background-color: transparent;
@@ -189,7 +189,7 @@
     padding: 0;
     position: absolute;
     top:65vw;
-    left:30vw;
+    left:32.5vw;
     font-size: 7vw;
     font-family: 'Roboto-Bold';
 }
@@ -209,8 +209,8 @@
     outline: none;
     background-color: transparent;
     position: absolute;
-    top: 0;   
-    left:5px;
+    bottom: 5%;   
+    right: 5%;
     font-size: 3vw;
     font-family: 'Roboto-Bold';
 }

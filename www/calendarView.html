@@ -71,22 +71,25 @@
                 </div>
             </div>
             <div class="content">
-                <center>
-                    <input type="text" id="dateBooking" style="display:none">
-                    <div id="datepicker" style="width:100%"></div>
-                </center>
+                <br>
+                <div>
+                    <center>
+                        <input type="text" id="dateBooking" style="display:none">
+                        <div id="datepicker" style="width:100%;"></div>
+                    </center>
+                </div>
 <!--                <textarea id="txtPurpose" maxlength="500"></textarea>-->
-                <div class="inputField" style="top:45%;right:0;width:100%;">
+                <div class="inputField" style="top:40%;right:0;width:100%;">
                     &nbsp;&nbsp;&nbsp;<font style="font-size:5vw;">Title</font>
-                    <input id="txtTitle" maxlength="100" type="text" style="height:7vw;line-height:7vw;width:69%;float:right;margin-right:5%;font-size:3vw;"/>
+                    <input id="txtTitle" maxlength="100" type="text" style="height:7vw;line-height:7vw;width:69%;float:right;margin-right:5%;font-size:3vw;border:1px solid lightgrey;"/>
                 </div>
-                <div class="inputField" style="top:52%;right:0;width:100%;">
+                <div class="inputField" style="top:47%;right:0;width:100%;">
                     &nbsp;&nbsp;&nbsp;<font style="font-size:5vw;">Purpose</font>
-                    <textarea id="txtPurpose" maxlength="100" style="height:21vw;line-height:7vw;width:69%;float:right;margin-right:5%;font-size:3vw;"></textarea>
+                    <textarea id="txtPurpose" maxlength="100" style="height:21vw;line-height:7vw;width:69%;float:right;margin-right:5%;font-size:3vw;border:1px solid lightgrey;"></textarea>
                 </div>
-                <div class="inputField" style="top:72%;">
+                <div class="inputField" style="top:63%;">
                 <img src="img/clock.jpg" class="comboImg" style="left:2%;"/>
-                <select id="startTime" class="comboTime" style="left:13%">
+                <select id="startTime" class="comboTime" style="left:13%;border:1px solid lightgrey;">
                     <option>00:00</option>
                     <option>00:30</option>
                     <option>01:00</option>
@@ -138,7 +141,7 @@
                 </select>
                 <span class="inputLabel">To</span>
                 <img src="img/clock.jpg" class="comboImg" style="left:45%;"/>
-                <select id="endTime" class="comboTime" style="left:57%">
+                <select id="endTime" class="comboTime" style="left:57%;border:1px solid lightgrey;">
                     <option>00:00</option>
                     <option>00:30</option>
                     <option>01:00</option>
@@ -189,43 +192,37 @@
                     <option>23:30</option>
                 </select>
                 </div>
-                <div class="inputField" style="top:70%;">
-                    <button id="btnBook"><img src="img/booknow.png" class="buttonImg"/></button>
+                <div class="inputField" style="bottom:1%;">
+                    <button id="btnCheckschedule"><img src="img/booknow.png" class="buttonImg"/></button>
                 </div>
-                <div class="inputField" style="top:81%;width:100%">
+                <div class="inputField" style="top:72%;width:90%">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Repeat</span>
-                    <select id="repeatType" class="comboTime" style="left:30%;width:50%;" onchange="changeRepeat();">
+                    <select id="repeatType" class="comboTime" style="left:30%;width:50%;border:1px solid lightgrey;" onchange="changeRepeat();">
                     <option>No Repeat</option>
                     <option>Daily</option>
                     <option>Weekly</option>
                     <option>Monthly</option>
                 </select>   
                 </div>
-                <div class="inputField" style="top:88%;width:100%;display:none;" id="startDateDiv">
+                <div class="inputField" style="top:79%;width:100%;display:none;" id="startDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Start Date</span>
                     <input id="startDate" class="comboTime" style="left:30%;width:50%;" readonly="true"/>  
                 </div>
-                <div class="inputField" style="top:88%;width:100%;display:none;" id="endDateDiv">
+                <div class="inputField" style="top:79%;width:90%;display:none;" id="endDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;End Date </span>
-                    <input id="endDate" class="comboTime" style="left:30%;width:50%;height:7vw;line-height:7vw;font-size:4vw;" type="text" readonly="true"/>
+                    <input id="endDate" class="comboTime" style="left:30%;width:50%;height:7vw;line-height:7vw;font-size:4vw;border:1px solid lightgrey;" type="text" readonly="true"/>
+                </div>
+                <div class="btnBookDiv" style="bottom:5%;left:0%;">
+                    <button id="btnBook"><img src="img/confirm.png" class="buttonImg"/></button>
+                </div>
+                <div class="btnMeetingListDiv" style="bottom:10%;left:0%;">
+                    <button id="btnMeetingList"><img src="img/search.png" class="buttonImg" onclick="goMeetingList();"/></button>
                 </div>
                 <div class="inputField" style="bottom:15%;display:none;"><h1>Booking history</h1></div>
                 <div class="pageone" style="display:none">
                     <div class="wrapper" id="wrapper">
                         <div class="scroll-content" id="scroll-content">
                             <ul class="scrollul" id="scrollul">
-<!--
-                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Richard Goh</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 14 May 2016 14:00 - 16:00</p></td></tr></table>
-                                </li>
-                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Ahmad Dahlan</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 14 May 2016 09:00 - 11:00</p></td></tr></table>
-                                </li>
-                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Ho Chon Weh</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 13 May 2016 15:00 - 16:00</p></td></tr></table>
-                                </li>
-                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Jason Tan</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 13 May 2016 11:00 - 13:00</p></td></tr></table>
-                                </li>
-                                <li class='scrollli' id='featuredrow1' onclick="goCalendar();"><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>Jason Tan</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: 11 May 2016 09:30 - 10:30</p></td></tr></table>
-                                </li>
--->
                             </ul>
                             <br>
                         </div>
@@ -238,11 +235,11 @@
                                             altField: '#dateBooking'
                                           });
               $( function() {
-                $( "#startDate" ).datepicker({
+                $( "#startDate" ).datepicker({ minDate: 0
                 });
               } );
             $( function() {
-                $( "#endDate" ).datepicker({                    
+                $( "#endDate" ).datepicker({  minDate: 0                  
                 });
               } );
             
@@ -279,7 +276,7 @@
                    dbmanager.getSession(function(returnData){
                         if(returnData.rows.length>0)
                         {   
-                            if($("#startTime").val()>$("#endTime").val()){
+                            if($("#startTime").val()>$("#endTime").val() || $("#startTime").val()==$("#endTime").val()){
                                 alert("invalid time");
                             }
                             else if($("#txtTitle").val()==""){
@@ -287,6 +284,15 @@
                             }
                             else if($("#txtPurpose").val()==""){
                                 alert("Please insert purpose");
+                            }
+                            else if($("#repeatType").val()!="No Repeat"){
+                                if($("#endDate").val()==""){
+                                    alert("Please select recurrence end date");
+                                }
+                                else{
+                                    loading.startLoading();
+                                    bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val())   
+                                }
                             }
                             else{
                                 loading.startLoading();
@@ -308,6 +314,11 @@
                     $("#startDateDiv").css("display", "none");
                 }
                 
+            }
+            
+            function goMeetingList(){
+                var roomid=getUrlParameter("id");
+                window.location="RoomMeetingList.html?rumId=" + roomid;   
             }
         </script>
     </body>

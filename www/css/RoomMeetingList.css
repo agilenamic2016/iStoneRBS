@@ -1,23 +1,20 @@
+textarea, input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 /* ------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------*/
 /* content page Style */
 .content{
     width: 100%;
-    height: 87%;
+    height: 94%;
     background-color: white;
 	position:absolute;
-	top:13%;
-}
-
-.actionDiv{
-    position: absolute;
-    top: 6%;
-    width: 100%;
-    height: 6%;
-    box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);
-    vertical-align: middle;
-    z-index: 97;
+	top:6%;
+    
 }
 
 .pageone{
@@ -28,8 +25,9 @@
     margin: 0px 0px 0px 0%;
     display: inline-block;
     position: absolute;
+    bottom: 0;
     z-index: 3;
-/*    position: absolute;*/
+/*    position:     absolute;*/
     
     -webkit-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);
@@ -41,35 +39,10 @@
     transition: transform 400ms ease;
 }
 
-.confirmButton{
-    height: 100%;
-    width: auto;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    float: right;
-    right: 5px;
-}
-
-.confirmButton img{
-    height: 100%;
-    width: auto;
-    
-}
-
-.actiontitle{
-    color: black;
-    width: auto;
-    height: 100%;
-    line-height: 100%;
-    background-color: transparent;
-    border:none;
-    right: 10px;
-    top: 0px;
-
-    font-size: 4vw;
-    font-family: "Roboto-Regular";
-	text-align:right;
+.ui-state-active, .ui-widget-content .ui-state-active {
+  /*any CSS styles you want overriden i.e.*/
+  border: 1px solid #999999;
+  background-color: lightskyblue;
 }
 
 /* content page stry end*/
@@ -108,7 +81,7 @@
     line-height:auto;
     border-bottom:1px solid #ccc;
     border-top:1px solid #fff;
-    border-bottom: 1px solid lightgray;  
+    border-bottom: 1px dotted black;  
     overflow: hidden;
 }
 
@@ -167,7 +140,7 @@
 .listviewitemseperator{
     line-height: 2px;
 /*    color: #32978f;*/
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid black;
     width: 30px;
     margin: 2px 0px 0px 10px;
 }
@@ -187,7 +160,71 @@
     position: absolute;
 }
 
-#buttonConfirm{
+/* listview Style Page 1 end*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+
+
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* time selection*/
+.inputLabel{
+    line-height: 8vw;
+    height: 8vw;
+    width: auto;
+    display: inline-block;
+    font-size:5vw;
+    position: absolute;
+    left:37%;
+}
+
+.comboTime{
+    line-height: 7vw;
+    height: 7vw;
+    width: 20vw;
+    display: inline-block;
+    font-size: 4vw;
+    position: absolute;
+    background: white;
+    z-index: 99;
+}
+
+.comboImg{
+    height: 8vw;
+    width: 8vw;
+    display: inline-block;
+    position: absolute;
+    left:19%;
+}
+
+#btnBook{
+    height: 9vh;
+    width: 9vh;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    padding: 0px;
+    margin: 0px;
+    z-index: 0;
+    bottom: 5%;
+    right: 5%;
+}
+
+#btnCheckschedule{
+    height: 9vh;
+    width: 15%;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    right: 22.5%;
+    display: none;
+}
+
+#btnMeetingList{
     height: 9vh;
     width: 9vh;
     background: transparent;
@@ -197,11 +234,32 @@
     padding: 0px;
     margin: 0px;
     z-index: 99;
-    bottom: 5%;
+    bottom: 16%;
     right: 5%;
 }
 
-/* listview Style Page 1 end*/
+/* time selection end*/
 /* ------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------*/
+
+
+
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------*/
+/*Room Info*/
+h1{
+    font-family: "Roboto-Bold";
+    font-size: 4vw;
+    margin-left: 5px;
+}
+
+div.ui-datepicker{
+ font-size:3.5vw;
+}
+
+.inputField{
+    font-size: 4vw:
+    
+}

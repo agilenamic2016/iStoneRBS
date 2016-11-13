@@ -11,11 +11,11 @@
         <script type="text/javascript" src="js/jquery/jquery.js"></script>
         <script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
         <script type="text/javascript" src="js/common.js"></script>
-        <script type="text/javascript" src="js/calendarOverView.js"></script>
+        <script type="text/javascript" src="js/RoomMeetingList.js"></script>
         <script type="text/javascript" src="js/web_request.js"></script>
         <link rel="stylesheet" type="text/css" href="js/jquery-ui/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="css/common.css" />
-        <link rel="stylesheet" type="text/css" href="css/calendarOverView.css" />
+        <link rel="stylesheet" type="text/css" href="css/RoomMeetingList.css" />
         <script type="text/javascript">
             $(document).ready(function(){
                 $(".ui-select span").hide();
@@ -25,7 +25,7 @@
             });
             
             function goBack(){
-                window.location="menu.html";    
+                window.history.back();
             }
             
             $(document).bind('mobileinit',function(){
@@ -40,8 +40,8 @@
             }
             
             function onBackKeyDown(e) {
-              e.preventDefault();
-                goBack();
+                e.preventDefault();
+                goBack(); 
             }
         </script>
     </head>
@@ -71,16 +71,12 @@
                 </div>
             </div>
             <div class="content">
-                <br>
-                <center>
-                    <div id="datepicker" style="width:100%"></div>
-                </center>
-                <div class="inputField" style="bottom:45%;display:none;Background:red;line-height:5vh;box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);z-index:99;" id="eventitle"><h1 style="line-height:5vh;color:white;">Upcoming Meeting List</h1></div>
+                <input type="text" id="dateBooking" style="display:none">
+                <div id="datepicker" style="width:100%;"  style="display:none"></div>
                 <div class="pageone">
                     <div class="wrapper" id="wrapper">
                         <div class="scroll-content" id="scroll-content">
                             <ul class="scrollul" id="scrollul">
-
                             </ul>
                             <br>
                         </div>
@@ -89,76 +85,80 @@
             </div>
         </div>
         <script>
+            $( "#datepicker" ).datepicker({ minDate: 0,
+                                            altField: '#dateBooking'
+                                          })
+                              .datepicker("setDate", new Date());
+            
+            
             var theScroll;
             function scroll() {
                 theScroll = new iScroll('wrapper');
             }     
         
             $(document).ready(function(){
-                dbmanager.initdb();    
+                dbmanager.initdb();
+                
+                var roomid=getUrlParameter("rumId");
+                
+                dbmanager.getSession(function(returnData){
+                        if(returnData.rows.length>0)
+                        {   
+                            loading.startLoading();
+                            bookingHistory(returnData.rows.item(0).token, $("#dateBooking").val(),roomid);
+                        }
+                    });
+                
                 
 //                $("#buttonbg").on("click",function(startevent){
 //                    window.history.back();
 //                });
                 
-                dbmanager.getSession(function(returnData){
-                    if(returnData.rows.length>0){
-
-                        loading.startLoading();
-                        getEventList(returnData.rows.item(0).token, returnData.rows.item(0).id);
-                    }
-                });
-/*                dbmanager.getHistoryListFromDB(function(returnData){
-                    var your_dates=[];
-                    if(returnData.rows.length>0)
-                    {
-                        $.each(returnData.rows, function(key, value){
-                            var newdate=value.BookingDate.split("T");
-                            var newsTime=value.StartingTime.substr(0,2)+":"+value.StartingTime.substr(2,2);
-                            var neweTime=value.EndingTime.substr(0,2)+":"+value.EndingTime.substr(2,2);
-
-                            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
-                            
-                            your_dates.push(new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2)));
-                        });       
-                    }
-                    
-                    $( "#datepicker" ).datepicker({ 
-                                                    altField: '#dateBooking',
-                                                    beforeShowDay: function(date) {
-                                                          // check if date is in your array of dates
-                                                          if(inArrayDates(date, your_dates)==-1) {
-                                                             // if it is return the following.
-                                                             return [true, 'css-class-to-highlight', ''];
-                                                          } else {
-                                                             // default
-                                                             return [true, '', ''];
-                                                          }
-                                                       }
-                                                  });
-                    
-                    
-                });*/
-
-                    
                 
+                
+                $("#btnBook").on("click",function(startevent){
+                   dbmanager.getSession(function(returnData){
+                        if(returnData.rows.length>0)
+                        {   
+                            if($("#startTime").val()>$("#endTime").val() || $("#startTime").val()==$("#endTime").val()){
+                                alert("invalid time");
+                            }
+                            else if($("#txtTitle").val()==""){
+                                alert("Please insert title");
+                            }
+                            else if($("#txtPurpose").val()==""){
+                                alert("Please insert purpose");
+                            }
+                            else if($("#repeatType").val()!="No Repeat"){
+                                if($("#endDate").val()==""){
+                                    alert("Please select recurrence end date");
+                                }
+                                else{
+                                    loading.startLoading();
+                                    bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val())   
+                                }
+                            }
+                            else{
+                                loading.startLoading();
+                                bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val())
+                            }
+                        }
+                    });
+                    
+                });
             });
             
-            function inArrayDates(needle, haystack){
-                for (var i=0, len=haystack.length;i<len;i++) 
-                {
-                    if (haystack[i].getTime() == needle.getTime()) 
-                    {
-                        return -1;
-                    }
+            function changeRepeat(){
+                if($("#repeatType").val()=="No Repeat"){
+                    $("#endDateDiv").css("display", "none");
+                    $("#startDateDiv").css("display", "none");
                 }
-                return 0;
+                else{
+                    $("#endDateDiv").css("display", "");
+                    $("#startDateDiv").css("display", "none");
+                }
+                
             }
-            
-            function gotoDetails(meetingNo, roomid){
-                 window.location="meetingDetail.html?id="+meetingNo+"&rumid="+roomid;
-            }
-            
         </script>
     </body>
 </html>

@@ -2,7 +2,7 @@ var domainUrl="http://52.207.238.42";
 var webUrl = domainUrl+"/RBS/api";
 var imageUrl=domainUrl+"/upload/";
 //var webUrl = "http://localhost:11175/api";
-//var webUrl = "http://192.168.1.7"+"/rbsdev/api";
+var webUrl = "http://192.168.1.3"+"/rbsdev/api";
 
 var apiTimeout=30000;
 
@@ -20,8 +20,8 @@ function requetLogin(userName, pwd, regid){
       data:jsonObj,
       timeout: apiTimeout,    
       success: function(data, status, xhr) {
-        debugger;    
-
+        debugger; 
+        
         if(data.SessionKey.length!=0){
             storeSessionKey(data.SessionKey, data.UserID, '');
         }
@@ -91,7 +91,6 @@ function getRoomList(sessionkey){
        
         storeRoomList(data);
         
-        
         dbmanager.getRoomListFromDB(function(returnData){
            
             if(returnData.rows.length>0)
@@ -99,7 +98,7 @@ function getRoomList(sessionkey){
                 for(var i=0;i<returnData.rows.length;i++){
                     
                     var roomname='"'+returnData.rows.item(i).name+'"';
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='goCalendar("+returnData.rows.item(i).id+", "+roomname+");'><table style='height:100%; width:100%;'><tr><td style='width:20%' ><img class='listviewimg' src='"+imageUrl+returnData.rows.item(i).photoUrl+"'></td><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).name+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table></li>");
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='goCalendar("+returnData.rows.item(i).id+", "+roomname+");'><table style='height:100%; width:100%;'><tr><td style='width:20%' ><img class='listviewimg' src='"+imageUrl+returnData.rows.item(i).photoUrl+"'></td><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).name+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>"+returnData.rows.item(i).remark+"</p></td></tr></table></li>");
                 }
         
 //                $.each(returnData.rows, function(key, value){
@@ -139,7 +138,7 @@ function storeRoomList(data){
     
     $.each(data, function(key, value){
         var dataObj = {
-        values1 : [value.ID.toString(), value.Name, value.PhotoFileName]
+        values1 : [value.ID.toString(), value.Name, value.PhotoFileName, value.Remark]
         };
 
         insertRoomList(dataObj);
@@ -147,7 +146,7 @@ function storeRoomList(data){
         function insertRoomList(dataObj) {
             db.transaction(function(tx) {
                 tx.executeSql(
-                    'INSERT INTO roomList (id, name, photoUrl) VALUES (?,?,?)', 
+                    'INSERT INTO roomList (id, name, photoUrl, remark) VALUES (?,?,?,?)', 
                     dataObj.values1,
                     successStoreRoomList,
                     erroStoreStoreRoomList
@@ -196,7 +195,7 @@ function getEventList(sessionkey, userid){
                     var newsTime=returnData.rows.item(i).StartingTime.substr(0,2)+":"+returnData.rows.item(i).StartingTime.substr(2,2);
                     var neweTime=returnData.rows.item(i).EndingTime.substr(0,2)+":"+returnData.rows.item(i).EndingTime.substr(2,2);
 
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='gotoDetails("+returnData.rows.item(i).ID+", "+returnData.rows.item(i).RoomID+")'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1' onclick='gotoDetails("+returnData.rows.item(i).ID+", "+returnData.rows.item(i).RoomID+")'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"<br><br>Booked By: "+returnData.rows.item(i).username+"</p></td></tr></table> </li>");
                     
                     your_dates.push(new Date(newdate[0].substr(0,4), newdate[0].substr(5,2)-1, newdate[0].substr(8,2)));
                     
@@ -268,7 +267,23 @@ function getEventList(sessionkey, userid){
             }
             else
             {
-                $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>No data</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table> </li>");
+                $( "#datepicker" ).datepicker({ 
+                    beforeShowDay: function(date) {
+                          // check if date is in your array of dates
+                          if(inArrayDates(date, your_dates)==-1) {
+                             // if it is return the following.
+                             return [true, 'css-class-to-highlight', ''];
+                          } 
+                          else {
+                             // default
+                             return [true, '', ''];
+                          }
+                       }
+                  });
+                
+                $("#eventitle").css("display", "");
+                
+                $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>No upcoming event</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p></td></tr></table> </li>");
             }
         });
 
@@ -317,7 +332,7 @@ function storeUserHistoryList(data){
     $.each(data, function(key, value){
         
         var dataObj = {
-        values1 : [value.ID, value.RoomID, value.Title, value.Purpose, value.BookingDate, value.StartingTime, value.EndingTime]
+        values1 : [value.ID, value.RoomID, value.Title, value.Purpose, value.BookingDate, value.StartingTime, value.EndingTime, value.UserName]
         };
 
         insertUserHistoryListList(dataObj);
@@ -325,7 +340,7 @@ function storeUserHistoryList(data){
         function insertUserHistoryListList(dataObj) {
             db.transaction(function(tx) {
                 tx.executeSql(
-                    'INSERT INTO userhistoryList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime) VALUES (?,?,?,?,?,?,?)', 
+                    'INSERT INTO userhistoryList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime) VALUES (?,?,?,?,?,?,?,?)', 
                     dataObj.values1,
                     successStoreEventList,
                     erroStoreStoreEventList
@@ -411,11 +426,12 @@ function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeat
             window.location="index.html";
             
         }
-        else if(jsonResponse.Message=="This time slot has been booked."){
-            alert("This time slot has been booked.");
+        else if(jsonResponse.Message.substring(0,26)=="Time slot has been booked:"){
+            alert(jsonResponse.Message);
             loading.endLoading();
         }
         else{
+            alert(jsonResponse.Message);
              alert("Book Room Failed");
             loading.endLoading();
         }
@@ -446,9 +462,8 @@ function bookingHistory(sessionkey, date,roomid){
 
         storeHistoryList(data);
         
-        
         dbmanager.getHistoryListFromDB(function(returnData){
-        
+
             if(returnData.rows.length>0)
             {
                 for(var i=0;i<returnData.rows.length;i++){
@@ -456,7 +471,7 @@ function bookingHistory(sessionkey, date,roomid){
                     var newsTime=returnData.rows.item(i).StartingTime.substr(0,2)+":"+returnData.rows.item(i).StartingTime.substr(2,2);
                     var neweTime=returnData.rows.item(i).EndingTime.substr(0,2)+":"+returnData.rows.item(i).EndingTime.substr(2,2);
 
-                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"</p></td></tr></table> </li>");
+                    $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+returnData.rows.item(i).Title+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'>DateTime: "+newdate[0]+" "+newsTime+" - "+neweTime+"<br><br>Booked By: "+returnData.rows.item(i).username+"</p></td></tr></table> </li>");
                 }
 //                $.each(returnData.rows, function(key, value){
 //                    var newdate=value.BookingDate.split("T");
@@ -500,7 +515,7 @@ function storeHistoryList(data){
     $.each(data, function(key, value){
         
         var dataObj = {
-        values1 : [value.ID, value.RoomID, value.Title, value.Purpose, value.BookingDate, value.StartingTime, value.EndingTime, value.RecurenceType.toString(), value.SCCStartDate, value.SCCEndDate]
+        values1 : [value.ID, value.RoomID, value.Title, value.Purpose, value.BookingDate, value.StartingTime, value.EndingTime, value.RecurenceType.toString(), value.SCCStartDate, value.SCCEndDate, value.UserName]
         };
         
         insertHistoryListList(dataObj);
@@ -508,7 +523,7 @@ function storeHistoryList(data){
         function insertHistoryListList(dataObj) {
             db.transaction(function(tx) {
                 tx.executeSql(
-                    'INSERT INTO historyList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime, rtype, startdate, enddate) VALUES (?,?,?,?,?,?,?,?,?,?)', 
+                    'INSERT INTO historyList (ID, RoomID, Title, Purpose, BookingDate, StartingTime, EndingTime, rtype, startdate, enddate, username) VALUES (?,?,?,?,?,?,?,?,?,?,?)', 
                     dataObj.values1,
                     successStoreBookingHistoryList,
                     erroStoreBookingHistoryList
@@ -541,16 +556,79 @@ function getUserList(sessionkey){
       timeout: apiTimeout,    
       success: function(data, status, xhr) {
         debugger;    
+        //alert(JSON.stringify(data));
+        var department=[];
+        $.each(data, function(key, value){
+            if ($.inArray(value.Department.Name, department) == -1)
+            {
+              department.push(value.Department.Name);
+            }
+        });
+    
+        department.sort();
         
-        if(data.length>0)
+        for(var x=0; x<department.length; x++)
         {
+            
+            $("#scrollul").append("<li class='scrollli' id='featuredrow1' style='background:red;border:none;box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2)'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle' style='color:white;'>"+department[x]+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p><td><input type='checkbox' id='departmentlist' class='departmentlist' value='"+department[x]+"' style='float:right'></td></tr></table></li>");
+            
+            var departmentMember=[];
             $.each(data, function(key, value){
-                $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>"+value.Username+"</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p><td><input type='checkbox' id='userlist' class='userlist' value='"+value.ID+"' style='float:right'></td></tr></table></li>");
-            });       
+                if(value.Department.Name==department[x])
+                {
+                    departmentMember.push(value.Name+"|||"+value.ID);
+                }
+            });        
+        
+            departmentMember.sort();
+             
+            for(var z=0; z<departmentMember.length; z++)
+            {
+                var arraysplit=departmentMember[z].split("|||");
+                var memberName=arraysplit[0];
+                var memberID=arraysplit[1];
+                
+                $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+memberName+"</h1><p class='listviewitemdetails'></p><td><input type='checkbox' id='userlist' class='userlist' value='"+memberID+"|||"+department[x]+"' style='float:right'></td></tr></table></li>");
+            }
         }
-        else
-        {                
-            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>No data</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p><td></td></tr></table></li>");
+    
+        $("#scrollul").append("<li class='scrollli' id='featuredrow1' style='border:none;'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1><p class='listviewitemdetails'></p><td></td></tr></table></li>");
+        $("#scrollul").append("<li class='scrollli' id='featuredrow1' style='border:none;'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1><p class='listviewitemdetails'></p><td></td></tr></table></li>");
+
+        $('.departmentlist').change(function() {
+            
+            var departmentListValue=$(this).val();
+            
+            if($(this).is(":checked")) {
+                
+               $('.userlist').each(function() {
+                   var arrsplit=$(this).val().split("|||");
+                   var memberdepatment=arrsplit[1]; 
+                    
+                   if(memberdepatment==departmentListValue){
+                        $(this).prop('checked', true);
+                   }
+               });
+            }
+            else{
+                $('.userlist').each(function() {
+                   var arrsplit=$(this).val().split("|||");
+                   var memberdepatment=arrsplit[1]; 
+                    
+                   if(memberdepatment==departmentListValue){
+                        $(this).prop('checked', false);
+                   }
+               });
+                
+            }
+                
+        });
+        
+
+    
+        if(data.length==0)
+        {
+            $("#scrollul").append("<li class='scrollli' id='featuredrow1'><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle'>No data</h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails'></p><td></td></tr></table></li>");   
         }
 
     
@@ -620,7 +698,7 @@ function getAtteendeeList(sessionkey, meetingid){
        
         for(var z=0; z<data.length; z++){
             var count=z+1;
-            userList=userList+count+") "+data[z].Username+"<br>";
+            userList=userList+count+") "+data[z].Name+"<br>";
         }
     
         $("#scrollul").append("<li class='scrollli' id='featuredrow1'><br><table style='height:100%; width:100%;'><tr><td><h1 class='listviewitemtitle' style='font-size:5vw;line-height:6vw'>Attendees: </h1><p class='listviewitemseperator'>&nbsp;</p><p class='listviewitemdetails' style='font-size:4vw;line-height:5vw'>"+userList+"</p></td></tr></table></li>");
@@ -642,6 +720,44 @@ function getAtteendeeList(sessionkey, meetingid){
       }
     })
 }
+
+
+function cancelMeeting(sessionkey, meetingid){
+    var requestUrl=webUrl+"/RBS/DeleteBooking";
+    var jsonObj = {SessionKey :sessionkey, MeetingID:meetingid};
+
+    $.ajax({
+      url: requestUrl,
+      type: "POST",
+      ContentType: "application/json",
+      async: true, 
+      dataType : "JSON",
+      data:jsonObj,
+      timeout: apiTimeout,    
+      success: function(data, status, xhr) {
+        debugger;    
+        
+        alert("Meeting cancelled successfully");
+        loading.endLoading();
+        window.location="calendarOverView.html";    
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        debugger;
+        if(xhr.statusText=="Unauthorized"){
+            alert("Session timeout. Please login again.");
+            dbmanager.logout();
+            window.location="index.html";
+            
+        }
+        else{
+            alert("Failed to cancel meeting!");
+            loading.endLoading();
+        }
+        
+      }
+    })
+}
+
 
 
 function successStoreSessionKey(){

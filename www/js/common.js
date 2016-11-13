@@ -38,9 +38,9 @@ var dbmanager = {
         
         function createTableTransaction(t){
             t.executeSql('CREATE TABLE IF NOT EXISTS sessionKey(token text, id int, registrationid text)');
-            t.executeSql('CREATE TABLE IF NOT EXISTS roomList(id text, name text, photoUrl text)');
-            t.executeSql('CREATE TABLE IF NOT EXISTS historyList(ID int, RoomID int, Title text, Purpose text, BookingDate text, StartingTime text, EndingTime text, rtype text, startdate text, enddate text)');
-            t.executeSql('CREATE TABLE IF NOT EXISTS userhistoryList(ID int, RoomID int, Title text, Purpose text, BookingDate text, StartingTime text, EndingTime text)');
+            t.executeSql('CREATE TABLE IF NOT EXISTS roomList(id text, name text, photoUrl text, remark text)');
+            t.executeSql('CREATE TABLE IF NOT EXISTS historyList(ID int, RoomID int, Title text, Purpose text, BookingDate text, StartingTime text, EndingTime text, rtype text, startdate text, enddate text, username text)');
+            t.executeSql('CREATE TABLE IF NOT EXISTS userhistoryList(ID int, RoomID int, Title text, Purpose text, BookingDate text, StartingTime text, EndingTime text, username text)');
             t.executeSql('CREATE TABLE IF NOT EXISTS RegID(ID text)');
         }
     },

@@ -1,8 +1,7 @@
-var domainUrl="http://52.207.238.42";
+var domainUrl="http://istonetech.dyndns.org:6002";
 var webUrl = domainUrl+"/RBS/api";
 var imageUrl=domainUrl+"/upload/";
 //var webUrl = "http://localhost:11175/api";
-var webUrl = "http://192.168.1.3"+"/rbsdev/api";
 
 var apiTimeout=30000;
 

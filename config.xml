@@ -42,21 +42,21 @@
             </params>
 	</gap:plugin>
     <plugin name="org.apache.cordova.battery-status" spec="0.2.12" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.camera" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.media-capture" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.core.contacts" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.device" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.device-motion" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.device-orientation" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.file" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.file-transfer" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.geolocation" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.globalization" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.media" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.network-information" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.splashscreen" source="pgb"/>
-    <gap:plugin name="org.apache.cordova.vibration" source="pgb"/>
+    <plugin name="org.apache.cordova.camera" source="pgb"/>
+    <plugin name="org.apache.cordova.media-capture" source="pgb"/>
+    <plugin name="org.apache.cordova.core.contacts" source="pgb"/>
+    <plugin name="org.apache.cordova.device" source="pgb"/>
+    <plugin name="org.apache.cordova.device-motion" source="pgb"/>
+    <plugin name="org.apache.cordova.device-orientation" source="pgb"/>
+    <plugin name="org.apache.cordova.file" source="pgb"/>
+    <plugin name="org.apache.cordova.file-transfer" source="pgb"/>
+    <plugin name="org.apache.cordova.geolocation" source="pgb"/>
+    <plugin name="org.apache.cordova.globalization" source="pgb"/>
+    <plugin name="org.apache.cordova.inappbrowser" source="pgb"/>
+    <plugin name="org.apache.cordova.media" source="pgb"/>
+    <plugin name="org.apache.cordova.network-information" source="pgb"/>
+    <plugin name="org.apache.cordova.splashscreen" source="pgb"/>
+    <plugin name="org.apache.cordova.vibration" source="pgb"/>
     
     
     <platform name="android">

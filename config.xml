@@ -41,7 +41,7 @@
             <param name="SENDER_ID" value="804997115089" />
             </params>
 	</gap:plugin>
-    <gap:plugin name="cordova-plugin-battery-status" source="pgb"/>
+    <gap:plugin name="org.apache.cordova.battery-status" source="pgb"/>
     <gap:plugin name="org.apache.cordova.camera" source="pgb"/>
     <gap:plugin name="org.apache.cordova.media-capture" source="pgb"/>
     <gap:plugin name="org.apache.cordova.core.contacts" source="pgb"/>

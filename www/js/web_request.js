@@ -25,14 +25,14 @@ function requetLogin(userName, pwd, regid){
             storeSessionKey(data.SessionKey, data.UserID, '');
         }
         else{
-           alert("Login failed.");
+           alert("Login failed.1");
            loading.endLoading();
         }
         
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
-        alert("Login failed.");
+        alert("Login failed.2");
         loading.endLoading();
       }
     })
@@ -67,7 +67,7 @@ function successStoreSessionKeyLogin(){
 function erroStoreSessionKeyLogin(err){
   //  alert("failed");
     loading.endLoading();
-    alert("Login failed."+err);
+    alert("Login failed.3"+err);
 }
 
 

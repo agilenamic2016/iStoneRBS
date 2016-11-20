@@ -32,7 +32,7 @@ function requetLogin(userName, pwd, regid){
       },
       error:function (xhr, ajaxOptions, thrownError){
         debugger;
-        alert("Login failed.2");
+        alert("Login failed." + xhr.responseText);
         loading.endLoading();
       }
     })

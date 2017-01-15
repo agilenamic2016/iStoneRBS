@@ -196,6 +196,17 @@
                     <button id="btnCheckschedule"><img src="img/booknow.png" class="buttonImg"/></button>
                 </div>
                 <div class="inputField" style="top:72%;width:90%">
+                    <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Notification</span>
+                    <select id="notificationTime" class="comboTime" style="left:35%;width:10%;border:1px solid lightgrey;" onchange="changeRepeat();">
+                    <option>5</option>
+                    <option>15</option>
+                    <option>30</option>
+                    <option>45</option>
+                    <option>60</option>
+                </select>
+                    <span class="inputLabel" style="left:48%;">&nbsp;&nbsp;&nbsp;minutes</span>
+                </div>
+                <div class="inputField" style="top:81%;width:90%">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Repeat</span>
                     <select id="repeatType" class="comboTime" style="left:30%;width:50%;border:1px solid lightgrey;" onchange="changeRepeat();">
                     <option>No Repeat</option>
@@ -204,11 +215,11 @@
                     <option>Monthly</option>
                 </select>   
                 </div>
-                <div class="inputField" style="top:79%;width:100%;display:none;" id="startDateDiv">
+                <div class="inputField" style="top:90%;width:100%;display:none;" id="startDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Start Date</span>
                     <input id="startDate" class="comboTime" style="left:30%;width:50%;" readonly="true"/>  
                 </div>
-                <div class="inputField" style="top:79%;width:90%;display:none;" id="endDateDiv">
+                <div class="inputField" style="top:90%;width:90%;display:none;" id="endDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;End Date </span>
                     <input id="endDate" class="comboTime" style="left:30%;width:50%;height:7vw;line-height:7vw;font-size:4vw;border:1px solid lightgrey;" type="text" readonly="true"/>
                 </div>
@@ -291,16 +302,15 @@
                                 }
                                 else{
                                     loading.startLoading();
-                                    bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val())   
+                                    bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val(), $("#notificationTime").val())   
                                 }
                             }
                             else{
                                 loading.startLoading();
-                                bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val())
+                                bookRoom(returnData.rows.item(0).token, $("#txtTitle").val(), $("#txtPurpose").val(), $("#dateBooking").val(), $("#startTime").val(), $("#endTime").val(), roomid, $("#repeatType").val(),$("#dateBooking").val(),$("#endDate").val(), $("#notificationTime").val())
                             }
                         }
                     });
-                    
                 });
             });
             

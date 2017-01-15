@@ -359,8 +359,8 @@ function erroStoreStoreEventList(err){
 }
 
 
-function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeattype, startdate, enddate){
-    var requestUrl=webUrl+"/RBS/Booking";
+function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeattype, startdate, enddate, notifiation){
+    var requestUrl=webUrl+"/RBS/BookingNew";
     
     var newdate=date.split("/");//date.substring(7,4);//+"-"+date.substring(0,2)+"-"+date.substring(3,2);
     var newstime=stime.split(":")//stime.substring(0,2);//+stime.substring(3,2);
@@ -396,7 +396,7 @@ function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeat
     else if(repeattype=="Monthly")
         repeattypeno=3;
     
-    var jsonObj = {SessionKey :sessionkey, Title: title, Purpose: purpose, BookingDate:date, StartingTime:stime, EndingTime:etime, RoomID:roomid, RecurrenceType:repeattypeno, SCCStartDate:submitStartDate, SCCEndDate:submitEndDate};
+    var jsonObj = {SessionKey :sessionkey, Title: title, Purpose: purpose, BookingDate:date, StartingTime:stime, EndingTime:etime, RoomID:roomid, RecurrenceType:repeattypeno, SCCStartDate:submitStartDate, SCCEndDate:submitEndDate, Notification: notifiation};
 
     $.ajax({
       url: requestUrl,

@@ -371,6 +371,7 @@ function bookRoom(sessionkey, title, purpose, date, stime, etime, roomid, repeat
     stime=newstime[0]+newstime[1];
     etime=newetime[0]+newetime[1];
     
+    
     if(repeattype.trim()=="No Repeat"){
         submitStartDate=date;
         submitEndDate=date;

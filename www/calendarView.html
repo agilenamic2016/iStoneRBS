@@ -85,9 +85,9 @@
                 </div>
                 <div class="inputField" style="top:47%;right:0;width:100%;">
                     &nbsp;&nbsp;&nbsp;<font style="font-size:5vw;">Purpose</font>
-                    <textarea id="txtPurpose" maxlength="100" style="height:21vw;line-height:7vw;width:69%;float:right;margin-right:5%;font-size:5vw;border:1px solid lightgrey;"></textarea>
+                    <textarea id="txtPurpose" maxlength="100" style="height:14vw;line-height:7vw;width:69%;float:right;margin-right:5%;font-size:5vw;border:1px solid lightgrey;"></textarea>
                 </div>
-                <div class="inputField" style="top:63%;">
+                <div class="inputField" style="top:58%;">
                 <img src="img/clock.jpg" class="comboImg" style="left:2%;"/>
                 <select id="startTime" class="comboTime" style="left:13%;border:1px solid lightgrey;">
                     <option>00:00</option>
@@ -195,7 +195,7 @@
                 <div class="inputField" style="bottom:1%;">
                     <button id="btnCheckschedule"><img src="img/booknow.png" class="buttonImg"/></button>
                 </div>
-                <div class="inputField" style="top:72%;width:90%">
+                <div class="inputField" style="top:67%;width:90%">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Notification</span>
                     <select id="notificationTime" class="comboTime" style="left:35%;width:15%;border:1px solid lightgrey;" onchange="changeRepeat();">
                     <option>5</option>
@@ -204,9 +204,13 @@
                     <option>45</option>
                     <option>60</option>
                 </select>
-                    <span class="inputLabel" style="left:51%;">&nbsp;&nbsp;&nbsp;minutes</span>
+                    <span class="inputLabel"
+                          style="left:51%;">&nbsp;&nbsp;&nbsp;minutes</span>
                 </div>
-                <div class="inputField" style="top:81%;width:90%">
+                <div class="inputField" style="top:72%;width:90%">
+                    <span class="inputLabel" style="left:5%;">before meeting</span>
+                </div>
+                <div class="inputField" style="top:80%;width:90%">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Repeat</span>
                     <select id="repeatType" class="comboTime" style="left:30%;width:50%;border:1px solid lightgrey;" onchange="changeRepeat();">
                     <option>No Repeat</option>
@@ -215,13 +219,13 @@
                     <option>Monthly</option>
                 </select>   
                 </div>
-                <div class="inputField" style="top:90%;width:100%;display:none;" id="startDateDiv">
+                <div class="inputField" style="top:88%;width:100%;display:none;" id="startDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;Start Date</span>
                     <input id="startDate" class="comboTime" style="left:30%;width:50%;" readonly="true"/>  
                 </div>
                 <div class="inputField" style="top:90%;width:90%;display:none;" id="endDateDiv">
                     <span class="inputLabel" style="left:0px;">&nbsp;&nbsp;&nbsp;End Date </span>
-                    <input id="endDate" class="comboTime" style="left:30%;width:50%;height:7vw;line-height:7vw;font-size:4vw;border:1px solid lightgrey;" type="text" readonly="true"/>
+                    <input id="endDate" class="comboTime" style="left:30%;width:50%;height:7vw;line-height:7vw;font-size:5vw;border:1px solid lightgrey;" type="text" readonly="true"/>
                 </div>
                 <div class="btnBookDiv" style="bottom:5%;left:0%;">
                     <button id="btnBook"><img src="img/confirm.png" class="buttonImg"/></button>

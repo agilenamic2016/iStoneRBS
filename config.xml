@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.i-Stone.RBS" version="1.0.23" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" versionCode = "103">
+<widget id="com.i-Stone.RBS" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" versionCode = "103">
     <name>iStone RBS</name>
     <description>
        iStone Meeting Room Booking System

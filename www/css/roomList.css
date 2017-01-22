@@ -97,11 +97,11 @@
     color: black;
     background-color: transparent;
     font-weight: normal;
-    line-height: 4.5vw;
+    line-height: 5vw;
     height: auto;
-    max-height: 9vw;
+    max-height: 10vw;
     font-family: "Roboto-Medium";
-    font-size: 3.8vw;
+    font-size: 4.5vw;
     margin: 5px 0px 0px 10px;
     text-overflow:clip;
     overflow: hidden;
@@ -114,12 +114,12 @@
     color: #565656;
     background-color: transparent;
     font-family: "Roboto-Regular";
-    font-size: 3vw;
+    font-size: 4vw;
     font-weight: normal;
-    line-height: 3.5vw;
+    line-height: 4.5vw;
     text-align: justify;
     margin: 10px 0px 0px 10px;
-    max-height: 10.5vw;
+    max-height: 13.5vw;
     text-overflow: clip;
     overflow: hidden;
 }

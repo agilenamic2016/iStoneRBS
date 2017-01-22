@@ -63,12 +63,12 @@ var app = {
 
         push.on('notification', function(data) {
             console.log('notification event');
-            navigator.notification.alert(
-                data.message,         // message
-                null,                 // callback
-                data.title,           // title
-                'Ok'                  // buttonName
-            );
+//            navigator.notification.alert(
+//                data.message,         // message
+//                null,                 // callback
+//                data.title,           // title
+//                'Ok'                  // buttonName
+//            );
        });
     }
 };

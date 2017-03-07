@@ -1,10 +1,10 @@
-var domainUrl="http://istonetech.dyndns.org:6002";
-//var domainUrl="http://192.168.1.4";
+//var domainUrl="http://istonetech.dyndns.org:6002";
+var domainUrl="http://192.168.1.5";
 var webUrl = domainUrl+"/RBS/api";
 var imageUrl=domainUrl+"/upload/";
 //var webUrl = "http://localhost:11175/api";
 
-var apiTimeout=30000;
+var apiTimeout=60000;
 
 function requetLogin(userName, pwd, regid){
     var requestUrl=webUrl+"/RBS/getlogin";

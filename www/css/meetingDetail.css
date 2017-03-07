@@ -211,6 +211,20 @@
     margin: 0px;
     z-index: 99;
     bottom: 5%;
+    left: 5%;
+}
+
+#btnAddAtt{
+    height: 7vh;
+    width: 7vh;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    padding: 0px;
+    margin: 0px;
+    z-index: 99;
+    bottom: 5%;
     right: 5%;
 }
 

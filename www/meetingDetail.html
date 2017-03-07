@@ -106,6 +106,10 @@
             <div class="btnDeleteDiv" style="bottom:5%;left:0%;background:blue;">
                     <button id="btnDelete"><img src="img/xicon.png" class="buttonImg"/></button>
             </div>
+            
+            <div class="btnDeleteDiv" style="bottom:5%;left:0%;background:blue;">
+                    <button id="btnAddAtt"><img src="img/adduser.png" class="buttonImg"/></button>
+            </div>
         </div>
         <script>
             var theScroll;
@@ -120,6 +124,11 @@
                 $("#btnDelete").on("click",function(startevent){
                    navigator.notification.confirm("Are you sure you want to cancel meeting?", onConfirmCancelMeeting, "Confirmation", "Yes,No");     
                 });
+                
+                $("#btnAddAtt").on("click",function(startevent){
+                   navigator.notification.confirm("Are you sure you want to reset and add new participant?", onConfirmAddAtt, "Confirmation", "Yes,No");     
+                });
+                
                 var meetingidurl=getUrlParameter("id");
                 var roomidurl=getUrlParameter("rumid");
                 meetingid=meetingidurl;
@@ -174,6 +183,16 @@
                         alert("no token");
                     }
                 });
+                }
+            }
+            
+            function onConfirmAddAtt(button) {
+                if(button==2){//If User selected No, then we just do nothing
+                    return;
+                }else{
+                    
+                    var getmeetingid=getUrlParameter("id");
+                    window.location="attlist.html?id="+getmeetingid;
                 }
             }
             

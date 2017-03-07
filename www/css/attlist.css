@@ -201,6 +201,19 @@
     right: 5%;
 }
 
+#buttonDelete{
+    height: 9vh;
+    width: 9vh;
+    background: transparent;
+    outline: none;
+    border: none;
+    position:absolute;
+    padding: 0px;
+    margin: 0px;
+    z-index: 99;
+    bottom: 5%;
+    left: 5%;
+}
 /* listview Style Page 1 end*/
 /* ------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------*/

@@ -73,6 +73,11 @@
                     <img src="img/confirm.png"/>
                 </button>
             </div>
+            <div class="btnConfirm" style="bottom:10%;right:0%;background:blue;">
+                <button id="buttonDelete" class="confirmButton">
+                    <img src="img/xicon.png"/>
+                </button>
+            </div>
             <div class="content">
                 <div class="pageone">
                     <div class="wrapper" id="wrapper">
@@ -130,6 +135,10 @@
                     addAtt();
                 });
                 
+                $("#buttonDelete").on("click",function(startevent){
+                   navigator.notification.confirm("Are you sure you want to exit", onConfirmExit, "Confirmation", "Yes,No");     
+                });
+                
                 dbmanager.getSession(function(returnData){
                     if(returnData.rows.length>0){
                         loading.startLoading();
@@ -138,6 +147,14 @@
                 });
 
             });
+            
+            function onConfirmExit(button) {
+                if(button==2){//If User selected No, then we just do nothing
+                    return;
+                }else{
+                    window.location="menu.html";   
+                }
+            }
             
         </script>
     </body>
